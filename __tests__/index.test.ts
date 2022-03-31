@@ -17,10 +17,19 @@ it("generates a config", () => {
       },
     })
   ).toMatchInlineSnapshot(`
-    {
-      "Content-Security-Policy": "default-src 'self'",
-      "Permissions-Policy": "battery=(none)",
-      "Strict-Transport-Security": "max-age=3600; includeSubDomains; preload",
-    }
+    [
+      [
+        "Content-Security-Policy",
+        "default-src 'self'",
+      ],
+      [
+        "Permissions-Policy",
+        "battery=(none)",
+      ],
+      [
+        "Strict-Transport-Security",
+        "max-age=3600; includeSubDomains; preload",
+      ],
+    ]
   `);
 });

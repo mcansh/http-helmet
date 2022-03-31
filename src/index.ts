@@ -96,5 +96,5 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
     headers.set("Referrer-Policy", options["Referrer-Policy"]);
   }
 
-  return Object.fromEntries(headers.entries());
+  return Array.from(headers.entries());
 }
