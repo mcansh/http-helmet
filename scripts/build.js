@@ -7,4 +7,37 @@ build({
   entry: path.resolve(pkgJSON.source),
   outfile: path.resolve(pkgJSON.main),
   bundle: true,
+  onEnd(config) {
+    let dtsFilesOutdir = dirname(config.outfile);
+    generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);
+  },
 });
+
+function generateTypeDefs(tsconfig, entryfiles, outdir) {
+  let filenames = Array.from(
+    new Set(
+      (Array.isArray(entryfiles) ? entryfiles : [entryfiles]).concat(
+        tsconfig.include || []
+      )
+    )
+  ).filter((v) => v);
+  log.info("Generating type declaration files for", filenames.join(", "));
+  let compilerOptions = {
+    ...tsconfig.compilerOptions,
+    moduleResolution: undefined,
+    declaration: true,
+    outDir: outdir,
+  };
+  let program = ts.ts.createProgram(filenames, compilerOptions);
+  let targetSourceFile = undefined;
+  let writeFile = undefined;
+  let cancellationToken = undefined;
+  let emitOnlyDtsFiles = true;
+  program.emit(
+    targetSourceFile,
+    writeFile,
+    cancellationToken,
+    emitOnlyDtsFiles
+  );
+  log.info("Wrote", glob(outdir + "/*.d.ts").join(", "));
+}
