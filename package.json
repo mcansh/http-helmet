@@ -1,6 +1,6 @@
 {
   "name": "@mcansh/remix-secure-headers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
