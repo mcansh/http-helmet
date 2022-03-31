@@ -7,6 +7,16 @@ build({
   entry: path.resolve(pkgJSON.source),
   outfile: path.resolve(pkgJSON.main),
   bundle: true,
+  format: "cjs",
+  minify: false,
+});
+
+build({
+  entry: path.resolve(pkgJSON.source),
+  outfile: path.resolve(pkgJSON.module),
+  bundle: true,
+  format: "cjs",
+  minify: false,
   onEnd(config) {
     let dtsFilesOutdir = dirname(config.outfile);
     generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);

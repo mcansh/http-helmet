@@ -2,8 +2,21 @@
   "name": "@mcansh/remix-secure-headers",
   "version": "0.2.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "node": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.mjs"
+      },
+      "types": "./index.d.ts",
+      "default": "./index.mjs"
+    }
+  },
   "scripts": {
     "watch": "./scripts/build.js --watch",
     "build": "./scripts/build.js && tsc",
