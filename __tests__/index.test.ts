@@ -13,7 +13,11 @@ it("generates a config", () => {
         defaultSrc: ["'self'"],
       },
       "Permissions-Policy": {
-        battery: ["none"],
+        battery: [],
+        accelerometer: ["self"],
+        autoplay: ["https://example.com"],
+        camera: ["*"],
+        fullscreen: ["self", "https://example.com", "https://example.org"],
       },
     })
   ).toMatchInlineSnapshot(`
@@ -24,7 +28,7 @@ it("generates a config", () => {
       ],
       [
         "Permissions-Policy",
-        "battery=(none)",
+        "battery=(), accelerometer=(self), autoplay=(\\"https://example.com\\"), camera=*, fullscreen=(self \\"https://example.com\\" \\"https://example.org\\")",
       ],
       [
         "Strict-Transport-Security",
@@ -32,4 +36,19 @@ it("generates a config", () => {
       ],
     ]
   `);
+});
+
+it("throws an error if the value is reserved", () => {
+  expect(() =>
+    createSecureHeaders({
+      "Content-Security-Policy": {
+        defaultSrc: ["'self'", "https://example.com"],
+      },
+      "Permissions-Policy": {
+        battery: ["'self'"],
+      },
+    })
+  ).toThrowErrorMatchingInlineSnapshot(
+    '"[createPermissionsPolicy]: self must not be quoted for \\"battery\\"."'
+  );
 });

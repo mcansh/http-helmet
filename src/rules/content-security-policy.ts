@@ -51,7 +51,7 @@ export function createContentSecurityPolicy(
     .map(([key, values]) => {
       if (!Array.isArray(values)) {
         throw new Error(
-          `The value of the "${key}" feature must be array of strings.`
+          `[createContentSecurityPolicy]: The value of the "${key}" must be array of strings.`
         );
       }
 
@@ -60,18 +60,20 @@ export function createContentSecurityPolicy(
       values.forEach((allowedValue) => {
         if (typeof allowedValue !== "string") {
           throw new Error(
-            `The value of the "${key}" feature contains a non-string, which is not supported.`
+            `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`
           );
         }
 
         if (allowedValuesSeen.has(allowedValue)) {
           throw new Error(
-            `The value of the "${key}" feature contains duplicates, which it shouldn't.`
+            `[createContentSecurityPolicy]: The value of the "${key}" contains duplicates, which it shouldn't.`
           );
         }
 
         if (reservedCSPKeywords.has(allowedValue) && !isQuoted(allowedValue)) {
-          throw new Error(`reserved keyword ${allowedValue} must be quoted.`);
+          throw new Error(
+            `[createContentSecurityPolicy]: reserved keyword ${allowedValue} must be quoted.`
+          );
         }
 
         allowedValuesSeen.add(allowedValue);
