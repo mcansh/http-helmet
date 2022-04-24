@@ -69,10 +69,10 @@ export type CreateSecureHeaders = {
    */
   "X-Content-Type-Options"?: ContentTypeOptions;
   /**
-   *
+   * The HTTP Cross-Origin-Opener-Policy (COOP) response header allows you to ensure a top-level document does not share a browsing context group with cross-origin documents.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
    */
-  "Cross-Origin-Opener-Policy": CrossOriginOpenerPolicy;
+  "Cross-Origin-Opener-Policy"?: CrossOriginOpenerPolicy;
 };
 
 export function createSecureHeaders(options: CreateSecureHeaders) {
