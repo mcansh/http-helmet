@@ -1,5 +1,5 @@
 import type { LiteralUnion } from "type-fest";
-import { dashify, isQuoted } from "../utils";
+import { dashify } from "../utils";
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
