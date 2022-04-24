@@ -15,7 +15,7 @@ export * from "./rules/content-security-policy";
 export * from "./rules/permissions";
 export * from "./rules/strict-transport-security";
 
-export type XFrameOptions = "DENY" | "SAMEORIGIN";
+export type FrameOptions = "DENY" | "SAMEORIGIN";
 export type ReferrerPolicy =
   | "no-referrer"
   | "no-referrer-when-downgrade"
@@ -25,6 +25,12 @@ export type ReferrerPolicy =
   | "strict-origin"
   | "strict-origin-when-cross-origin"
   | "unsafe-url";
+export type DNSPrefetchControl = "on" | "off";
+export type ContentTypeOptions = "nosniff";
+export type CrossOriginOpenerPolicy =
+  | "unsafe-none"
+  | "same-origin-allow-popups"
+  | "same-origin";
 
 export type CreateSecureHeaders = {
   /**
@@ -36,7 +42,7 @@ export type CreateSecureHeaders = {
    * The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a <frame>, <iframe>, <embed> or <object>. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
    */
-  "X-Frame-Options"?: XFrameOptions;
+  "X-Frame-Options"?: FrameOptions;
   /**
    * The HTTP Feature-Policy header provides a mechanism to allow and deny the use of browser features in its own frame, and in content within any <iframe> elements in the document.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
@@ -56,12 +62,17 @@ export type CreateSecureHeaders = {
    * The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
    */
-  "X-DNS-Prefetch-Control"?: "on" | "off";
+  "X-DNS-Prefetch-Control"?: DNSPrefetchControl;
   /**
    * The X-Content-Type-Options response HTTP header is a marker used by the server to indicate that the MIME types advertised in the Content-Type headers should be followed and not be changed. The header allows you to avoid MIME type sniffing by saying that the MIME types are deliberately configured.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
    */
-  "X-Content-Type-Options"?: "nosniff";
+  "X-Content-Type-Options"?: ContentTypeOptions;
+  /**
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
+   */
+  "Cross-Origin-Opener-Policy": CrossOriginOpenerPolicy;
 };
 
 export function createSecureHeaders(options: CreateSecureHeaders) {
