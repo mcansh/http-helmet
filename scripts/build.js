@@ -15,7 +15,7 @@ build({
   entry: path.resolve(pkgJSON.source),
   outfile: path.resolve(pkgJSON.module),
   bundle: true,
-  format: "cjs",
+  format: "esm",
   minify: false,
   onEnd(config) {
     let dtsFilesOutdir = dirname(config.outfile);
