@@ -1,19 +1,19 @@
 import {
   ContentSecurityPolicy,
   createContentSecurityPolicy,
-} from "./rules/content-security-policy";
+} from "./rules/content-security-policy.js";
 import {
   createPermissionsPolicy,
   PermissionsPolicy,
-} from "./rules/permissions";
+} from "./rules/permissions.js";
 import {
   strictTransportSecurity,
   StrictTransportSecurity,
-} from "./rules/strict-transport-security";
+} from "./rules/strict-transport-security.js";
 
-export * from "./rules/content-security-policy";
-export * from "./rules/permissions";
-export * from "./rules/strict-transport-security";
+export * from "./rules/content-security-policy.js";
+export * from "./rules/permissions.js";
+export * from "./rules/strict-transport-security.js";
 
 export type FrameOptions = "DENY" | "SAMEORIGIN";
 export type ReferrerPolicy =

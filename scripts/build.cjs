@@ -9,6 +9,10 @@ build({
   bundle: true,
   format: "cjs",
   minify: false,
+  onEnd(config) {
+    let dtsFilesOutdir = dirname(config.outfile);
+    generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);
+  },
 });
 
 build({

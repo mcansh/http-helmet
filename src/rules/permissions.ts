@@ -1,5 +1,5 @@
 import type { LiteralUnion } from "type-fest";
-import { dashify } from "../utils";
+import { dashify } from "../utils.js";
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
