@@ -3,10 +3,10 @@
   "version": "0.6.0",
   "description": "",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "source": "src/index.ts",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "README.markdown",
@@ -19,8 +19,9 @@
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
       },
-      "types": "./index.d.ts",
-      "default": "./index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
