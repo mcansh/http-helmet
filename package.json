@@ -21,9 +21,13 @@
     }
   },
   "scripts": {
-    "watch": "del dist && ./scripts/build.cjs --watch",
-    "build": "del dist && ./scripts/build.cjs",
-    "test": "vitest"
+    "clean": "del dist",
+    "prewatch": "npm run clean",
+    "watch": "./scripts/build.cjs --watch",
+    "prebuild": "npm run clean",
+    "build": "./scripts/build.cjs",
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
