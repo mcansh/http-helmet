@@ -3,14 +3,19 @@
 ## Install
 
 ```sh
+# npm
 npm i @mcansh/remix-secure-headers
+# pnpm
+pnpm i @mcansh/remix-secure-headers
+# yarn
+yarn add @mcansh/remix-secure-headers
 ```
 
 ## Usage
 
 ```diff
 // app/entry.server.tsx
-import { createSecureHeaders } from "@mcansh/remix-secure-headers";
++ import { createSecureHeaders } from "@mcansh/remix-secure-headers";
 
 + let headers = createSecureHeaders({
 +   "Strict-Transport-Security": {
