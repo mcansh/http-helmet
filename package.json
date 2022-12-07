@@ -1,47 +1,27 @@
 {
-  "name": "@mcansh/remix-secure-headers",
-  "version": "0.6.2",
-  "description": "",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.markdown",
-    "package.json"
-  ],
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "default": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
+  "private": true,
   "scripts": {
     "clean": "del dist",
-    "prewatch": "npm run clean",
-    "watch": "./scripts/build.cjs --watch",
-    "prebuild": "npm run clean",
-    "build": "./scripts/build.cjs",
+    "prewatch": "pnpm run clean",
+    "watch": "pnpm run --recursive watch",
+    "prebuild": "pnpm run clean",
+    "build": "pnpm run --recursive build",
     "test": "vitest",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
-  "keywords": [],
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "example"
+  ],
   "dependencies": {
-    "type-fest": "^3.0.0"
-  },
-  "devDependencies": {
     "@tsconfig/node14": "1.0.3",
     "@types/node": "18.8.3",
     "del-cli": "5.0.0",
-    "estrella": "1.4.1",
+    "tsup": "^6.5.0",
     "typescript": "4.8.4",
     "vitest": "0.23.4"
-  }
+  },
+  "prettier": {}
 }

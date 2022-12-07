@@ -1,8 +1,11 @@
 {
-  "include": ["src/**/*.ts"],
-  "extends": "./node_modules/@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "importsNotUsedAsValues": "error"
-  }
+    "importsNotUsedAsValues": "error",
+    "resolveJsonModule": true
+  },
+  "references": [
+    { "path": "packages/remix-secure-headers" },
+  ]
 }
