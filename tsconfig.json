@@ -2,10 +2,8 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "resolveJsonModule": true
   },
-  "references": [
-    { "path": "packages/remix-secure-headers" },
-  ]
+  "references": [{ "path": "packages/remix-secure-headers" }]
 }
