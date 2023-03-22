@@ -1,3 +1,4 @@
+import { Headers } from "@remix-run/web-fetch";
 import {
   ContentSecurityPolicy,
   createContentSecurityPolicy,
@@ -76,7 +77,7 @@ export type CreateSecureHeaders = {
 };
 
 export function createSecureHeaders(options: CreateSecureHeaders) {
-  let headers = new Map<string, string>();
+  let headers = new Headers();
 
   if (options["Content-Security-Policy"]) {
     headers.set(
@@ -107,5 +108,5 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
     headers.set("Referrer-Policy", options["Referrer-Policy"]);
   }
 
-  return Array.from(headers.entries());
+  return headers;
 }
