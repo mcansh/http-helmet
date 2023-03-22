@@ -34,6 +34,7 @@
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "license": "MIT",
   "dependencies": {
+    "@remix-run/web-fetch": "^4.3.3",
     "type-fest": "^3.0.0"
   },
   "devDependencies": {

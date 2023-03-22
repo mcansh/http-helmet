@@ -1,3 +1,4 @@
+import { Headers } from "@remix-run/web-fetch";
 import {
   ContentSecurityPolicy,
   createContentSecurityPolicy,
@@ -31,7 +32,6 @@ export type CrossOriginOpenerPolicy =
   | "unsafe-none"
   | "same-origin-allow-popups"
   | "same-origin";
-
 export type CreateSecureHeaders = {
   /**
    * Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft, to site defacement, to malware distribution.
@@ -76,7 +76,7 @@ export type CreateSecureHeaders = {
 };
 
 export function createSecureHeaders(options: CreateSecureHeaders) {
-  let headers = new Map<string, string>();
+  let headers = new Headers();
 
   if (options["Content-Security-Policy"]) {
     headers.set(
@@ -107,5 +107,5 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
     headers.set("Referrer-Policy", options["Referrer-Policy"]);
   }
 
-  return Array.from(headers.entries());
+  return headers;
 }
