@@ -8,10 +8,10 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.js",
-      "default": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
