@@ -21,20 +21,17 @@ it("generates a config", () => {
       },
     })
   ).toMatchInlineSnapshot(`
-    [
-      [
-        "Content-Security-Policy",
+    Headers {
+      Symbol(query): [
+        "content-security-policy",
         "default-src 'self'",
-      ],
-      [
-        "Permissions-Policy",
+        "permissions-policy",
         "battery=(), accelerometer=(self), autoplay=(\\"https://example.com\\"), camera=*, fullscreen=(self \\"https://example.com\\" \\"https://example.org\\")",
-      ],
-      [
-        "Strict-Transport-Security",
+        "strict-transport-security",
         "max-age=3600; includeSubDomains; preload",
       ],
-    ]
+      Symbol(context): null,
+    }
   `);
 });
 

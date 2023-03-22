@@ -53,8 +53,10 @@ importers:
 
   packages/remix-secure-headers:
     specifiers:
+      '@remix-run/web-fetch': ^4.3.3
       type-fest: ^3.6.1
     dependencies:
+      '@remix-run/web-fetch': 4.3.3
       type-fest: 3.6.1
 
 packages:
