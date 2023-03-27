@@ -11,6 +11,7 @@ it("generates a config", () => {
       },
       "Content-Security-Policy": {
         defaultSrc: ["'self'"],
+        upgradeInsecureRequests: true,
       },
       "Permissions-Policy": {
         battery: [],
@@ -24,7 +25,7 @@ it("generates a config", () => {
     Headers {
       Symbol(query): [
         "content-security-policy",
-        "default-src 'self'",
+        "upgrade-insecure-requests; default-src 'self'",
         "permissions-policy",
         "battery=(), accelerometer=(self), autoplay=(\\"https://example.com\\"), camera=*, fullscreen=(self \\"https://example.com\\" \\"https://example.org\\")",
         "strict-transport-security",
