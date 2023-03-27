@@ -1,0 +1,26 @@
+name: 📝 Comment on issues and pull requests
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  comment:
+    name: 📝 Comment on issues and pull requests
+    if: github.repository == 'mcansh/remix-secure-headers'
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 📝 📝 Comment on issues and pull requests
+        uses: mcansh/release-comment-action@0.2.0
+        with:
+          DIRECTORY_TO_CHECK: ./packages
