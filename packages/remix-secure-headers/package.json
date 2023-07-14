@@ -28,7 +28,7 @@
     "watch": "tsup --watch"
   },
   "dependencies": {
-    "@remix-run/web-fetch": "^4.3.3",
-    "type-fest": "^3.6.1"
+    "@remix-run/web-fetch": "^4.3.5",
+    "type-fest": "^3.13.0"
   }
 }
