@@ -38,9 +38,9 @@ importers:
 
   example:
     dependencies:
-      '@mcansh/remix-secure-headers':
+      '@mcansh/http-helmet':
         specifier: workspace:*
-        version: link:../packages/remix-secure-headers
+        version: link:../packages/http-helmet
       '@remix-run/node':
         specifier: ^1.18.1
         version: 1.18.1
