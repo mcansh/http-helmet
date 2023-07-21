@@ -4,8 +4,8 @@ export type StrictTransportSecurity = {
   preload?: boolean;
 };
 
-export function strictTransportSecurity(
-  options: StrictTransportSecurity
+export function createStrictTransportSecurity(
+  options: StrictTransportSecurity,
 ): string {
   let header = `max-age=${options.maxAge}`;
 
