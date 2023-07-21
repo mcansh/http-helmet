@@ -1,18 +1,12 @@
 import path from "node:path";
 import { defineConfig } from "tsup";
 import type { Options } from "tsup";
-import glob from "glob";
 import pkgJson from "./package.json";
 
 let external = Object.keys(pkgJson.dependencies || {});
 
-let entry = glob.sync("src/**/*.ts");
-
 export default defineConfig(() => {
-  let outDir = path.dirname(pkgJson.main);
-  let target = "node14";
-
-  let shared_options: Options = {
+  let options: Options = {
     entry: ["src/index.ts"],
     sourcemap: true,
     external,
@@ -21,11 +15,11 @@ export default defineConfig(() => {
 
   return [
     {
-      ...shared_options,
+      ...options,
       format: "cjs",
     },
     {
-      ...shared_options,
+      ...options,
       format: "esm",
       dts: true,
     },
