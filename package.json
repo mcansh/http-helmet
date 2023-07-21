@@ -12,6 +12,9 @@
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.mjs",
     "changeset:release": "pnpm run build && changeset publish"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
   "workspaces": [
