@@ -7,7 +7,10 @@
     "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
     "test": "vitest",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "changeset": "changeset",
+    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.mjs",
+    "changeset:release": "pnpm run build && changeset publish"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
@@ -16,6 +19,7 @@
     "example"
   ],
   "dependencies": {
+    "@changesets/cli": "^2.26.2",
     "@tsconfig/node14": "^14.1.0",
     "@types/node": "^20.4.2",
     "del-cli": "^5.0.0",
