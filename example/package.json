@@ -1,4 +1,5 @@
 {
+  "name": "example-app",
   "private": true,
   "sideEffects": false,
   "scripts": {
