@@ -16,7 +16,7 @@ concurrency:
 jobs:
   release:
     name: 🦋 Changesets Release
-    if: github.repository == 'mcansh/remix-secure-headers' || github.repository == 'mcansh/http-headers'
+    if: github.repository == 'mcansh/remix-secure-headers'
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
@@ -37,6 +37,11 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
 
+      - name: 🔐 Setup npm auth
+        run: |
+          echo "registry=https://registry.npmjs.org" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
         # This action has two responsibilities. The first time the workflow runs
         # (initial push to a `release-*` branch) it will create a new branch and
         # then open a PR with the related changes for the new version. After the
@@ -53,10 +58,11 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   comment:
     name: 📝 Comment on issues and pull requests
-    if: (github.repository == 'mcansh/remix-secure-headers' || github.repository == 'mcansh/http-headers') && needs.release.outputs.published == 'true'
+    if: github.repository == 'mcansh/remix-secure-headers' && needs.release.outputs.published == 'true'
     needs: [release]
     runs-on: ubuntu-latest
     steps:
