@@ -61,6 +61,8 @@ function applySecureHeaders(headers: Headers) {
     "Content-Security-Policy": {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", `'nonce-${nonce}'`],
+      connectSrc:
+        process.env.NODE_ENV === "development" ? ["ws:", "'self'"] : ["'self'"],
     },
     "Strict-Transport-Security": {
       maxAge: 31536000,
