@@ -25,13 +25,13 @@ it("generates a config", () => {
   });
 
   expect(headers.get("Strict-Transport-Security")).toBe(
-    "max-age=63072000; includeSubDomains; preload"
+    "max-age=63072000; includeSubDomains; preload",
   );
   expect(headers.get("Content-Security-Policy")).toBe(
-    "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'"
+    "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'",
   );
   expect(headers.get("Permissions-Policy")).toBe(
-    `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org")`
+    `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org")`,
   );
   expect(headers.get("X-XSS-Protection")).toBe("1; report=https://google.com");
 });
@@ -45,8 +45,8 @@ it("throws an error if the value is reserved", () => {
       "Permissions-Policy": {
         battery: ["'self'"],
       },
-    })
+    }),
   ).toThrowErrorMatchingInlineSnapshot(
-    '"[createPermissionsPolicy]: self must not be quoted for \\"battery\\"."'
+    '"[createPermissionsPolicy]: self must not be quoted for \\"battery\\"."',
   );
 });
