@@ -62,7 +62,7 @@ jobs:
 
   comment:
     name: 📝 Comment on issues and pull requests
-    if: github.repository == 'mcansh/remix-secure-headers' && needs.release.outputs.published == 'true'
+    if: github.repository == 'mcansh/http-helmet' && needs.release.outputs.published == 'true'
     needs: [release]
     runs-on: ubuntu-latest
     steps:
