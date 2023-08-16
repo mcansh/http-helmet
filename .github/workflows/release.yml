@@ -16,7 +16,7 @@ concurrency:
 jobs:
   release:
     name: 🦋 Changesets Release
-    if: github.repository == 'mcansh/remix-secure-headers'
+    if: github.repository == 'mcansh/http-helmet'
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
