@@ -76,9 +76,9 @@ export type CreateSecureHeaders = {
    */
   "Cross-Origin-Opener-Policy"?: CrossOriginOpenerPolicy;
   /**
-	  @description The HTTP X-XSS-Protection response header is a feature of Internet Explorer, Chrome and Safari that stops pages from loading when they detect reflected cross-site scripting (XSS) attacks. These protections are largely unnecessary in modern browsers when sites implement a strong Content-Security-Policy that disables the use of inline JavaScript ('unsafe-inline').
-		@see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
-  */
+   * @description The HTTP X-XSS-Protection response header is a feature of Internet Explorer, Chrome and Safari that stops pages from loading when they detect reflected cross-site scripting (XSS) attacks. These protections are largely unnecessary in modern browsers when sites implement a strong Content-Security-Policy that disables the use of inline JavaScript ('unsafe-inline').
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
+   */
   "X-XSS-Protection"?: XSSProtection;
 };
 

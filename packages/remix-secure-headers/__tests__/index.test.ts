@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { createSecureHeaders } from "../src";
+import { createSecureHeaders } from "../src/index.js";
 
 it("generates a config", () => {
   let headers = createSecureHeaders({
@@ -11,6 +11,8 @@ it("generates a config", () => {
     "Content-Security-Policy": {
       defaultSrc: ["'self'"],
       upgradeInsecureRequests: true,
+      scriptSrc: ["'sha512-sdhgsgh'"],
+      imgSrc: ["'none'"],
     },
     "Permissions-Policy": {
       battery: [],
@@ -26,7 +28,7 @@ it("generates a config", () => {
     "max-age=63072000; includeSubDomains; preload"
   );
   expect(headers.get("Content-Security-Policy")).toBe(
-    "upgrade-insecure-requests; default-src 'self'"
+    "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'"
   );
   expect(headers.get("Permissions-Policy")).toBe(
     `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org")`
