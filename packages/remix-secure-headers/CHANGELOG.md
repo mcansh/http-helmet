@@ -1,5 +1,18 @@
 # @mcansh/remix-secure-headers
 
+## 0.8.0
+
+### Minor Changes
+
+- 095ff81: rename package as it's for more than just remix
+
+### Patch Changes
+
+- b199901: chore: improve typing for special quoted csp sources
+- Updated dependencies [aea04b9]
+- Updated dependencies [095ff81]
+  - @mcansh/http-helmet@0.8.0
+
 ## 0.7.2
 
 ### Patch Changes
