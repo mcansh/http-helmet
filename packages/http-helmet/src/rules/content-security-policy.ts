@@ -40,7 +40,7 @@ const reservedCSPKeywords = new Set([
 ]);
 
 export function createContentSecurityPolicy(
-  settings: ContentSecurityPolicy
+  settings: ContentSecurityPolicy,
 ): string {
   let { upgradeInsecureRequests, ...rest } = settings;
   let policy: Array<string> = [];
@@ -52,7 +52,7 @@ export function createContentSecurityPolicy(
   for (let [key, values] of Object.entries(rest)) {
     if (!Array.isArray(values)) {
       throw new Error(
-        `[createContentSecurityPolicy]: The value of the "${key}" must be array of strings.`
+        `[createContentSecurityPolicy]: The value of the "${key}" must be array of strings.`,
       );
     }
 
@@ -61,19 +61,19 @@ export function createContentSecurityPolicy(
     values.forEach((allowedValue) => {
       if (typeof allowedValue !== "string") {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`
+          `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`,
         );
       }
 
       if (allowedValuesSeen.has(allowedValue)) {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${key}" contains duplicates, which it shouldn't.`
+          `[createContentSecurityPolicy]: The value of the "${key}" contains duplicates, which it shouldn't.`,
         );
       }
 
       if (reservedCSPKeywords.has(allowedValue) && !isQuoted(allowedValue)) {
         throw new Error(
-          `[createContentSecurityPolicy]: reserved keyword ${allowedValue} must be quoted.`
+          `[createContentSecurityPolicy]: reserved keyword ${allowedValue} must be quoted.`,
         );
       }
 

@@ -48,7 +48,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
     .map(([key, featureValues]) => {
       if (!Array.isArray(featureValues)) {
         throw new Error(
-          `The value of the "${key}" feature must be array of strings.`
+          `The value of the "${key}" feature must be array of strings.`,
         );
       }
 
@@ -57,19 +57,19 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
       featureValues.forEach((allowedValue) => {
         if (typeof allowedValue !== "string") {
           throw new Error(
-            `[createPermissionsPolicy]: The value of "${key}" contains a non-string, which is not supported.`
+            `[createPermissionsPolicy]: The value of "${key}" contains a non-string, which is not supported.`,
           );
         }
 
         if (allowedValuesSeen.has(allowedValue)) {
           throw new Error(
-            `[createPermissionsPolicy]: The value of "${key}" contains duplicates, which it shouldn't.`
+            `[createPermissionsPolicy]: The value of "${key}" contains duplicates, which it shouldn't.`,
           );
         }
 
         if (allowedValue === "'self'") {
           throw new Error(
-            `[createPermissionsPolicy]: self must not be quoted for "${key}".`
+            `[createPermissionsPolicy]: self must not be quoted for "${key}".`,
           );
         }
 
@@ -78,7 +78,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
 
       if (featureValues.length > 1 && allowedValuesSeen.has("*")) {
         throw new Error(
-          `[createPermissionsPolicy]: The value of the "${key}" feature cannot contain * and other values.`
+          `[createPermissionsPolicy]: The value of the "${key}" feature cannot contain * and other values.`,
         );
       }
 

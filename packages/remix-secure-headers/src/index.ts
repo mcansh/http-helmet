@@ -1,122 +1,63 @@
-import { Headers } from "@remix-run/web-fetch";
-import {
-  ContentSecurityPolicy,
-  createContentSecurityPolicy,
-} from "./rules/content-security-policy.js";
-import {
-  createPermissionsPolicy,
-  PermissionsPolicy,
-} from "./rules/permissions.js";
-import {
-  strictTransportSecurity,
-  StrictTransportSecurity,
-} from "./rules/strict-transport-security.js";
+console.warn(
+  "this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release",
+);
 
-export * from "./rules/content-security-policy.js";
-export * from "./rules/permissions.js";
-export * from "./rules/strict-transport-security.js";
+import * as helmet from "@mcansh/http-helmet";
 
-export type FrameOptions = "DENY" | "SAMEORIGIN";
-export type ReferrerPolicy =
-  | "no-referrer"
-  | "no-referrer-when-downgrade"
-  | "origin"
-  | "origin-when-cross-origin"
-  | "same-origin"
-  | "strict-origin"
-  | "strict-origin-when-cross-origin"
-  | "unsafe-url";
-export type DNSPrefetchControl = "on" | "off";
-export type ContentTypeOptions = "nosniff";
-export type CrossOriginOpenerPolicy =
-  | "unsafe-none"
-  | "same-origin-allow-popups"
-  | "same-origin";
-export type XSSProtection = "0" | "1" | "1; mode=block" | `1; report=${string}`;
-
-export type CreateSecureHeaders = {
-  /**
-   * @description Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft, to site defacement, to malware distribution.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-   */
-  "Content-Security-Policy"?: ContentSecurityPolicy;
-  /**
-   * @description The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>` or `<object>`. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-   */
-  "X-Frame-Options"?: FrameOptions;
-  /**
-   * @description The HTTP Feature-Policy header provides a mechanism to allow and deny the use of browser features in its own frame, and in content within any <iframe> elements in the document.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
-   */
-  "Permissions-Policy"?: PermissionsPolicy;
-  /**
-   * @description The Referrer-Policy HTTP header controls how much referrer information (sent with the Referer header) should be included with requests. Aside from the HTTP header, you can set this policy in HTML.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-   */
-  "Referrer-Policy"?: ReferrerPolicy;
-  /**
-   * @description HTTP Strict-Transport-Security response header (often abbreviated as HSTS) informs browsers that the site should only be accessed using HTTPS, and that any future attempts to access it using HTTP should automatically be converted to HTTPS.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-   */
-  "Strict-Transport-Security"?: StrictTransportSecurity;
-  /**
-   * @description The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
-   */
-  "X-DNS-Prefetch-Control"?: DNSPrefetchControl;
-  /**
-   * @description The X-Content-Type-Options response HTTP header is a marker used by the server to indicate that the MIME types advertised in the Content-Type headers should be followed and not be changed. The header allows you to avoid MIME type sniffing by saying that the MIME types are deliberately configured.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
-   */
-  "X-Content-Type-Options"?: ContentTypeOptions;
-  /**
-   * @description The HTTP Cross-Origin-Opener-Policy (COOP) response header allows you to ensure a top-level document does not share a browsing context group with cross-origin documents.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
-   */
-  "Cross-Origin-Opener-Policy"?: CrossOriginOpenerPolicy;
-  /**
-   * @description The HTTP X-XSS-Protection response header is a feature of Internet Explorer, Chrome and Safari that stops pages from loading when they detect reflected cross-site scripting (XSS) attacks. These protections are largely unnecessary in modern browsers when sites implement a strong Content-Security-Policy that disables the use of inline JavaScript ('unsafe-inline').
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
-   */
-  "X-XSS-Protection"?: XSSProtection;
-};
-
-export function createSecureHeaders(options: CreateSecureHeaders) {
-  let headers = new Headers();
-
-  if (options["Content-Security-Policy"]) {
-    headers.set(
-      "Content-Security-Policy",
-      createContentSecurityPolicy(options["Content-Security-Policy"])
-    );
-  }
-
-  if (options["X-Frame-Options"]) {
-    headers.set("X-Frame-Options", options["X-Frame-Options"]);
-  }
-
-  if (options["Permissions-Policy"]) {
-    headers.set(
-      "Permissions-Policy",
-      createPermissionsPolicy(options["Permissions-Policy"])
-    );
-  }
-
-  if (options["Strict-Transport-Security"]) {
-    headers.set(
-      "Strict-Transport-Security",
-      strictTransportSecurity(options["Strict-Transport-Security"])
-    );
-  }
-
-  if (options["Referrer-Policy"]) {
-    headers.set("Referrer-Policy", options["Referrer-Policy"]);
-  }
-
-  if (options["X-XSS-Protection"]) {
-    headers.set("X-XSS-Protection", options["X-XSS-Protection"]);
-  }
-
-  return headers;
-}
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type ContentSecurityPolicy = helmet.ContentSecurityPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type ContentTypeOptions = helmet.ContentTypeOptions;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type CreateSecureHeaders = helmet.CreateSecureHeaders;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type CrossOriginOpenerPolicy = helmet.CrossOriginOpenerPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type DNSPrefetchControl = helmet.DNSPrefetchControl;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type FrameOptions = helmet.FrameOptions;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type PermissionsPolicy = helmet.PermissionsPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type ReferrerPolicy = helmet.ReferrerPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type StrictTransportSecurity = helmet.StrictTransportSecurity;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export type XSSProtection = helmet.XSSProtection;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export const createContentSecurityPolicy = helmet.createContentSecurityPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export const createPermissionsPolicy = helmet.createPermissionsPolicy;
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export const createSecureHeaders = helmet.createSecureHeaders;
+// prettier-ignore
+/**
+ * @deprecated this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release
+ */
+export const createStrictTransportSecurity = helmet.createStrictTransportSecurity;

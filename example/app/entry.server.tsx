@@ -5,7 +5,7 @@ import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { createSecureHeaders } from "@mcansh/remix-secure-headers";
+import { createSecureHeaders } from "@mcansh/http-helmet";
 import { NonceContext } from "./nonce";
 
 let ABORT_DELAY = 5000;
@@ -14,7 +14,7 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   let nonce = applySecureHeaders(responseHeaders);
 
@@ -36,7 +36,7 @@ export default function handleRequest(
             new Response(body, {
               headers: responseHeaders,
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -48,7 +48,7 @@ export default function handleRequest(
           console.error(error);
           responseStatusCode = 500;
         },
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);
