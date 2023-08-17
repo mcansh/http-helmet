@@ -5,6 +5,11 @@
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https:/github.com/mcansh/remix-security-headers",
+    "directory": "./packages/http-helmet"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
