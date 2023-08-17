@@ -1,6 +1,6 @@
 {
   "name": "@mcansh/remix-secure-headers",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "",
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
@@ -37,7 +37,7 @@
     "watch": "tsup --watch"
   },
   "dependencies": {
-    "@mcansh/http-helmet": "0.8.0"
+    "@mcansh/http-helmet": "0.8.1"
   },
   "publishConfig": {
     "access": "public",
