@@ -4,18 +4,14 @@
 
 ```sh
 # npm
-npm i @mcansh/remix-secure-headers
-# pnpm
-pnpm i @mcansh/remix-secure-headers
-# yarn
-yarn add @mcansh/remix-secure-headers
+npm i @mcansh/http-helmet
 ```
 
 ## Usage
 
 ```diff
 // app/entry.server.tsx
-+ import { createSecureHeaders } from "@mcansh/remix-secure-headers";
++ import { createSecureHeaders } from "@mcansh/http-helmet";
 
 + let headers = createSecureHeaders({
 +   "Strict-Transport-Security": {
