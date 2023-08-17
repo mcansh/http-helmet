@@ -40,6 +40,7 @@
     "@mcansh/http-helmet": "0.7.1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }
