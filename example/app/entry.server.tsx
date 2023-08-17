@@ -16,11 +16,24 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  let nonce = applySecureHeaders(responseHeaders);
-
   let callback = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
     : "onShellReady";
+
+  let nonce = crypto.randomBytes(16).toString("base64");
+  let secureHeaders = createSecureHeaders({
+    "Content-Security-Policy": {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", `'nonce-${nonce}'`],
+      // prettier-ignore
+      connectSrc: process.env.NODE_ENV === "development" ? ["ws:", "'self'"] : ["'self'"],
+    },
+    "Strict-Transport-Security": {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+  });
 
   return new Promise((resolve, reject) => {
     let { pipe, abort } = renderToPipeableStream(
@@ -28,9 +41,14 @@ export default function handleRequest(
         <RemixServer context={remixContext} url={request.url} />
       </NonceContext.Provider>,
       {
+        nonce,
         [callback]() {
           let body = new PassThrough();
+
           responseHeaders.set("Content-Type", "text/html");
+          for (let header of secureHeaders) {
+            responseHeaders.set(...header);
+          }
 
           resolve(
             new Response(body, {
@@ -53,27 +71,4 @@ export default function handleRequest(
 
     setTimeout(abort, ABORT_DELAY);
   });
-}
-
-function applySecureHeaders(headers: Headers) {
-  let nonce = crypto.randomBytes(16).toString("base64");
-  let secureHeaders = createSecureHeaders({
-    "Content-Security-Policy": {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", `'nonce-${nonce}'`],
-      connectSrc:
-        process.env.NODE_ENV === "development" ? ["ws:", "'self'"] : ["'self'"],
-    },
-    "Strict-Transport-Security": {
-      maxAge: 31536000,
-      includeSubDomains: true,
-      preload: true,
-    },
-  });
-
-  for (let header of secureHeaders) {
-    headers.set(...header);
-  }
-
-  return nonce;
 }

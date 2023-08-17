@@ -1,4 +1,6 @@
-# Remix Secure Headers
+# HTTP Helmet
+
+easily add CSP and other security headers to your web application.
 
 ## Install
 
@@ -9,42 +11,61 @@ npm i @mcansh/http-helmet
 
 ## Usage
 
-```diff
-// app/entry.server.tsx
-+ import { createSecureHeaders } from "@mcansh/http-helmet";
+basic example using hono
 
-+ let headers = createSecureHeaders({
-+   "Strict-Transport-Security": {
-+     maxAge: 3600,
-+     includeSubDomains: true,
-+     preload: true,
-+   },
-+   "Content-Security-Policy": {
-+     defaultSrc: ["'self'"],
-+   },
-+   "Permissions-Policy": {
-+     battery: ["none"],
-+   },
-+ });
+```js
+import crypto from "node:crypto";
 
-async function handleDocumentRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext
-) {
-  const markup = renderToString(
-    <RemixServer url={request.url} context={remixContext} />
-  );
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import { createSecureHeaders } from "@mcansh/http-helmet";
 
-  responseHeaders.set("Content-Type", "text/html");
-+  for (const header of securityHeaders) {
-+    responseHeaders.set(...header);
-+  }
+const app = new Hono();
 
-  return new Response(`<!DOCTYPE html>${markup}`, {
-    status: responseStatusCode,
-    headers: responseHeaders,
+let html = String.raw;
+
+app.get("/", () => {
+  let nonce = crypto.randomBytes(16).toString("base64");
+
+  let headers = createSecureHeaders({
+    "Content-Security-Policy": {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", `'nonce-${nonce}'`],
+    },
   });
-}
+
+  headers.append("Content-Type", "text/html; charset=utf-8");
+
+  return new Response(
+    html`
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>Hello World</title>
+        </head>
+        <body>
+          <h1>Hello World</h1>
+
+          <script nonce="${nonce}">
+            console.log("nonce configured");
+          </script>
+
+          <script>
+            alert("nonce not configured");
+          </script>
+        </body>
+      </html>
+    `,
+    { headers },
+  );
+});
+
+serve(app, (info) => {
+  console.log(`✅ app ready: http://${info.address}:${info.port}`);
+});
 ```
