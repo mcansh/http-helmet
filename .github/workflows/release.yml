@@ -75,4 +75,4 @@ jobs:
         uses: remix-run/release-comment-action@v0.4.1
         with:
           DIRECTORY_TO_CHECK: "./packages"
-          PACKAGE_NAME: "@mcansh/remix-secure-headers"
+          PACKAGE_NAME: "@mcansh/http-helmet"

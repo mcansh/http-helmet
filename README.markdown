@@ -11,7 +11,7 @@ npm i @mcansh/http-helmet
 
 ```diff
 // app/entry.server.tsx
-+ import { createSecureHeaders } from "@mcansh/remix-secure-headers";
++ import { createSecureHeaders } from "@mcansh/http-helmet";
 
 + let headers = createSecureHeaders({
 +   "Strict-Transport-Security": {
