@@ -1,1 +1,1 @@
-./packages/http-helmet/README.md
+../http-helmet/README.md
