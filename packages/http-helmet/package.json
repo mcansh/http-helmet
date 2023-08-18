@@ -29,10 +29,11 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "README.markdown",
+    "README.md",
     "package.json"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "build": "tsup",
     "watch": "tsup --watch"
   },

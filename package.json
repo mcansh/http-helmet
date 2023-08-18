@@ -25,6 +25,7 @@
     "@tsconfig/node14": "^14.1.0",
     "@types/node": "^20.5.0",
     "del-cli": "^5.0.0",
+    "find-monorepo-root": "^1.0.3",
     "prettier": "^3.0.2",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6",
