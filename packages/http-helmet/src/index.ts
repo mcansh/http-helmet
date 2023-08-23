@@ -12,22 +12,16 @@ import {
   StrictTransportSecurity,
 } from "./rules/strict-transport-security.js";
 
+export { createContentSecurityPolicy } from "./rules/content-security-policy.js";
+export type { ContentSecurityPolicy } from "./rules/content-security-policy.js";
+export { createPermissionsPolicy } from "./rules/permissions.js";
+export type { PermissionsPolicy } from "./rules/permissions.js";
 export {
-  ContentSecurityPolicy,
-  createContentSecurityPolicy,
-} from "./rules/content-security-policy.js";
-export {
-  PermissionsPolicy,
-  createPermissionsPolicy,
-} from "./rules/permissions.js";
-export {
-  StrictTransportSecurity,
   createStrictTransportSecurity,
-  /**
-   * @deprecated renamed to createStrictTransportSecurity to be consistent with other functions
-   */
+  /** @deprecated renamed to createStrictTransportSecurity to be consistent with other functions */
   createStrictTransportSecurity as strictTransportSecurity,
 } from "./rules/strict-transport-security.js";
+export type { StrictTransportSecurity } from "./rules/strict-transport-security.js";
 
 export type FrameOptions = "DENY" | "SAMEORIGIN";
 export type ReferrerPolicy =
