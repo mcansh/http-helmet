@@ -1,9 +1,3 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "declarationMap": true
-  }
+  "extends": "../../packages/http-helmet/tsconfig.json"
 }
