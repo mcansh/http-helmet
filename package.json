@@ -9,7 +9,7 @@
     "test": "vitest",
     "prepublishOnly": "pnpm run build",
     "changeset": "changeset",
-    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.mjs",
+    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.mjs && pnpm install --lockfile-only",
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --write . --ignore-path .gitignore --ignore-unknown"
   },
