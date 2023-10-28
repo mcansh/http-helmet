@@ -9,12 +9,14 @@ on:
       - "!release-manual"
       - "!release-manual-*"
 
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-permissions:
-  id-token: write
 
 jobs:
   release:
@@ -25,7 +27,7 @@ jobs:
       published: ${{ steps.changesets.outputs.published }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
@@ -62,7 +64,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
 
   comment:
     name: 📝 Comment on issues and pull requests
@@ -71,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
