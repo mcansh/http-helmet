@@ -22,6 +22,13 @@ it("generates a config", () => {
       fullscreen: ["self", "https://example.com", "https://example.org"],
     },
     "X-XSS-Protection": "1; report=https://google.com",
+    "Cross-Origin-Embedder-Policy": "require-corp",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "on",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Frame-Options": "DENY",
   });
 
   expect(headers.get("Strict-Transport-Security")).toBe(
@@ -34,6 +41,15 @@ it("generates a config", () => {
     `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org")`,
   );
   expect(headers.get("X-XSS-Protection")).toBe("1; report=https://google.com");
+  expect(headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
+  expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
+  expect(headers.get("Cross-Origin-Resource-Policy")).toBe("same-origin");
+  expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
+  expect(headers.get("X-DNS-Prefetch-Control")).toBe("on");
+  expect(headers.get("Referrer-Policy")).toBe(
+    "strict-origin-when-cross-origin",
+  );
+  expect(headers.get("X-Frame-Options")).toBe("DENY");
 });
 
 it("throws an error if the value is reserved", () => {

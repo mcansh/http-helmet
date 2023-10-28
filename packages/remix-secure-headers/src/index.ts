@@ -1,7 +1,3 @@
-console.warn(
-  "this package has been renamed to `@mcansh/http-helmet` and will be removed in a future release",
-);
-
 import * as helmet from "@mcansh/http-helmet";
 
 /**
