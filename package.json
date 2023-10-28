@@ -1,15 +1,16 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "clean": "del dist",
-    "prewatch": "pnpm run clean",
-    "watch": "pnpm run --recursive watch",
+    "predev": "pnpm run clean",
+    "dev": "pnpm run --parallel --recursive dev",
     "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
     "test": "vitest",
     "prepublishOnly": "pnpm run build",
     "changeset": "changeset",
-    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.mjs && pnpm install --lockfile-only",
+    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --write . --ignore-path .gitignore --ignore-unknown"
   },

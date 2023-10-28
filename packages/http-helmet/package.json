@@ -35,7 +35,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsup",
-    "watch": "tsup --watch"
+    "dev": "tsup --watch"
   },
   "dependencies": {
     "@remix-run/web-fetch": "^4.4.1",

@@ -1,20 +1,22 @@
 import crypto from "node:crypto";
 import { PassThrough } from "node:stream";
-import type { EntryContext } from "@remix-run/node";
-import { Response } from "@remix-run/node";
+
+import type { AppLoadContext, EntryContext } from "@remix-run/node";
+import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { createSecureHeaders } from "@mcansh/http-helmet";
 import { NonceContext } from "./nonce";
 
-let ABORT_DELAY = 5000;
+const ABORT_DELAY = 5_000;
 
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
+  loadContext: AppLoadContext,
 ) {
   let callback = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
@@ -36,22 +38,30 @@ export default function handleRequest(
   });
 
   return new Promise((resolve, reject) => {
-    let { pipe, abort } = renderToPipeableStream(
+    let shellRendered = false;
+    const { pipe, abort } = renderToPipeableStream(
       <NonceContext.Provider value={nonce}>
-        <RemixServer context={remixContext} url={request.url} />
+        <RemixServer
+          context={remixContext}
+          url={request.url}
+          abortDelay={ABORT_DELAY}
+        />
       </NonceContext.Provider>,
       {
         nonce,
         [callback]() {
-          let body = new PassThrough();
+          shellRendered = true;
+          const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
-          for (let header of secureHeaders) {
-            responseHeaders.set(...header);
+
+          for (const [name, value] of secureHeaders.entries()) {
+            responseHeaders.set(name, value);
           }
 
           resolve(
-            new Response(body, {
+            new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
             }),
@@ -63,8 +73,13 @@ export default function handleRequest(
           reject(error);
         },
         onError(error: unknown) {
-          console.error(error);
           responseStatusCode = 500;
+          // Log streaming rendering errors from inside the shell.  Don't log
+          // errors encountered during initial shell rendering since they'll
+          // reject and get logged in handleDocumentRequest.
+          if (shellRendered) {
+            console.error(error);
+          }
         },
       },
     );
