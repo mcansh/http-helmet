@@ -91,7 +91,7 @@ importers:
   packages/remix-secure-headers:
     dependencies:
       '@mcansh/http-helmet':
-        specifier: 0.8.1
+        specifier: 0.8.2
         version: link:../http-helmet
 
 packages:
