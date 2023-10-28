@@ -7,8 +7,8 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https:/github.com/mcansh/remix-security-headers",
-    "directory": "./packages/http-helmet"
+    "url": "https:/github.com/mcansh/http-helmet",
+    "directory": "./packages/remix-secure-headers"
   },
   "exports": {
     "./package.json": "./package.json",
