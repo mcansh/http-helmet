@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.9.0
+
+### Minor Changes
+
+- 0d92a95: stop publishing `@mcansh/remix-secure-headers`
+
 ## 0.8.2
 
 ### Patch Changes
