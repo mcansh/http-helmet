@@ -38,7 +38,6 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@remix-run/web-fetch": "^4.4.1",
     "type-fest": "^4.6.0"
   },
   "publishConfig": {
