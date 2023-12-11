@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { createSecureHeaders } from "../src/index.js";
+import { describe, expect, it } from "vitest";
+import { createSecureHeaders, mergeHeaders } from "../src/index.js";
 
 it("generates a config", () => {
   let headers = createSecureHeaders({
@@ -65,4 +65,46 @@ it("throws an error if the value is reserved", () => {
   ).toThrowErrorMatchingInlineSnapshot(
     '"[createPermissionsPolicy]: self must not be quoted for \\"battery\\"."',
   );
+});
+
+describe("mergeHeaders", () => {
+  it("merges headers", () => {
+    let secureHeaders = createSecureHeaders({
+      "Content-Security-Policy": { defaultSrc: ["'self'"] },
+    });
+
+    let responseHeaders = new Headers({
+      "Content-Type": "text/html",
+      "x-foo": "bar",
+    });
+
+    let merged = mergeHeaders(responseHeaders, secureHeaders);
+
+    expect(merged.get("Content-Type")).toBe("text/html");
+    expect(merged.get("x-foo")).toBe("bar");
+    expect(merged.get("Content-Security-Policy")).toBe("default-src 'self'");
+  });
+
+  it("throws if the argument is not an object", () => {
+    // @ts-expect-error
+    expect(() => mergeHeaders("foo")).toThrowErrorMatchingInlineSnapshot(
+      '"All arguments must be of type object"',
+    );
+  });
+
+  it("overrides existing headers", () => {
+    let secureHeaders = createSecureHeaders({
+      "Content-Security-Policy": { defaultSrc: ["'self'"] },
+    });
+
+    let responseHeaders = new Headers({
+      "Content-Security-Policy": "default-src 'none'",
+    });
+
+    let merged1 = mergeHeaders(responseHeaders, secureHeaders);
+    let merged2 = mergeHeaders(secureHeaders, responseHeaders);
+
+    expect(merged1.get("Content-Security-Policy")).toBe("default-src 'self'");
+    expect(merged2.get("Content-Security-Policy")).toBe("default-src 'none'");
+  });
 });

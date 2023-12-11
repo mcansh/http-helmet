@@ -6,7 +6,7 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { createSecureHeaders } from "@mcansh/http-helmet";
+import { createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
 import { NonceContext } from "./nonce";
 
 const ABORT_DELAY = 5_000;
@@ -56,13 +56,9 @@ export default function handleRequest(
 
           responseHeaders.set("Content-Type", "text/html");
 
-          for (const [name, value] of secureHeaders.entries()) {
-            responseHeaders.set(name, value);
-          }
-
           resolve(
             new Response(stream, {
-              headers: responseHeaders,
+              headers: mergeHeaders(responseHeaders, secureHeaders),
               status: responseStatusCode,
             }),
           );
