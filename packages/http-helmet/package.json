@@ -33,12 +33,12 @@
     "package.json"
   ],
   "scripts": {
-    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "build": "tsup",
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "type-fest": "^4.6.0"
+    "type-fest": "^4.8.3"
   },
   "publishConfig": {
     "access": "public",
