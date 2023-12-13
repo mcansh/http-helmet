@@ -63,7 +63,7 @@ it("throws an error if the value is reserved", () => {
       },
     }),
   ).toThrowErrorMatchingInlineSnapshot(
-    '"[createPermissionsPolicy]: self must not be quoted for \\"battery\\"."',
+    `[Error: [createPermissionsPolicy]: self must not be quoted for "battery".]`,
   );
 });
 
@@ -88,7 +88,7 @@ describe("mergeHeaders", () => {
   it("throws if the argument is not an object", () => {
     // @ts-expect-error
     expect(() => mergeHeaders("foo")).toThrowErrorMatchingInlineSnapshot(
-      '"All arguments must be of type object"',
+      `[TypeError: All arguments must be of type object]`,
     );
   });
 
