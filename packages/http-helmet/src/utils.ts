@@ -29,7 +29,7 @@ function isObject(value: unknown) {
 }
 
 export function mergeHeaders(...sources: HeadersInit[]): Headers {
-  let result: HeadersInit = {};
+  let result = new Headers();
 
   for (let source of sources) {
     if (!isObject(source)) {
@@ -40,9 +40,11 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
 
     for (let [key, value] of headers.entries()) {
       if (value === undefined || value === "undefined") {
-        delete result[key];
+        result.delete(key);
+      } else if (key === "set-cookie") {
+        result.append(key, value);
       } else {
-        result[key] = value;
+        result.set(key, value);
       }
     }
   }

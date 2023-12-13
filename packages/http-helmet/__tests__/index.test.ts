@@ -107,4 +107,14 @@ describe("mergeHeaders", () => {
     expect(merged1.get("Content-Security-Policy")).toBe("default-src 'self'");
     expect(merged2.get("Content-Security-Policy")).toBe("default-src 'none'");
   });
+
+  it('keeps all "Set-Cookie" headers', () => {
+    let headers1 = new Headers({ "Set-Cookie": "foo=bar" });
+    let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
+
+    let merged = mergeHeaders(headers1, headers2);
+
+    expect(merged.get("Set-Cookie")).toBe("foo=bar, baz=qux");
+    expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
+  });
 });
