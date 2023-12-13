@@ -33,7 +33,7 @@
     "package.json"
   ],
   "scripts": {
-    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "build": "tsup",
     "dev": "tsup --watch"
   },
