@@ -23,3 +23,31 @@ export type QuotedSource =
   | "'strict-dynamic'"
   | "'report-sample'"
   | HashSource;
+
+function isObject(value: unknown) {
+  return value !== null && typeof value === "object";
+}
+
+export function mergeHeaders(...sources: HeadersInit[]): Headers {
+  let result = new Headers();
+
+  for (let source of sources) {
+    if (!isObject(source)) {
+      throw new TypeError("All arguments must be of type object");
+    }
+
+    let headers = new Headers(source);
+
+    for (let [key, value] of headers.entries()) {
+      if (value === undefined || value === "undefined") {
+        result.delete(key);
+      } else if (key === "set-cookie") {
+        result.append(key, value);
+      } else {
+        result.set(key, value);
+      }
+    }
+  }
+
+  return new Headers(result);
+}

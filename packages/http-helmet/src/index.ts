@@ -1,4 +1,4 @@
-import { Headers } from "@remix-run/web-fetch";
+export { mergeHeaders } from "./utils";
 import {
   ContentSecurityPolicy,
   createContentSecurityPolicy,
