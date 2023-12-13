@@ -1,5 +1,17 @@
 # @mcansh/http-helmet
 
+## 0.10.0
+
+### Minor Changes
+
+- 7b0c887: re-export types/functions remove deprecated `strictTransportSecurity` in favor of renamed `createStrictTransportSecurity`
+- 7d1d570: use Headers global instead of the implementation from `@remix-run/web-fetch`
+
+### Patch Changes
+
+- d439533: add mergeHeaders utility to merge your exisiting headers with the ones created by createdSecureHeaders
+- 12329f8: bump dependencies to latest versions
+
 ## 0.9.0
 
 ### Minor Changes
