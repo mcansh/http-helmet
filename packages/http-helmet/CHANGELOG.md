@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.10.1
+
+### Patch Changes
+
+- ba87f33: add funding to package.json
+
 ## 0.10.0
 
 ### Minor Changes
