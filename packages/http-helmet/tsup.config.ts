@@ -7,7 +7,7 @@ let external = Object.keys(pkgJson.dependencies || {});
 export default defineConfig(() => {
   let options: Options = {
     shims: true,
-    entry: ["src/index.ts"],
+    entry: ["src/index.ts", "src/remix.tsx"],
     sourcemap: true,
     external,
     tsconfig: "./tsconfig.json",

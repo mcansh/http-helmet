@@ -12,6 +12,7 @@
     "moduleResolution": "Bundler",
     "moduleDetection": "force",
     "resolveJsonModule": true,
+    "jsx": "react",
 
     "outDir": "dist",
     "emitDeclarationOnly": true,
