@@ -28,6 +28,9 @@ on:
     tags:
       - "v0.0.0-experimental*"
 
+permissions:
+  id-token: write
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
@@ -37,7 +40,7 @@ jobs:
   release:
     name: 🧑‍🔬 Experimental Release
     if: |
-      github.repository == 'remix-run/remix' &&
+      github.repository == 'mcansh/http-helmet' &&
       contains(github.ref, 'experimental')
     runs-on: ubuntu-latest
     steps:
