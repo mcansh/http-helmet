@@ -51,7 +51,8 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest"
   },
   "dependencies": {
     "type-fest": "^4.10.2"
