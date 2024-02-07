@@ -27,6 +27,16 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js",
       "default": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": {
+        "require": "./dist/react.d.cts",
+        "import": "./dist/react.d.ts",
+        "default": "./dist/react.d.cts"
+      },
+      "require": "./dist/react.cjs",
+      "import": "./dist/react.js",
+      "default": "./dist/react.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -44,7 +54,25 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "type-fest": "^4.8.3"
+    "type-fest": "^4.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public",
