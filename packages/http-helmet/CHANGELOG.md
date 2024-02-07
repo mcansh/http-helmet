@@ -1,5 +1,12 @@
 # @mcansh/http-helmet
 
+## 0.10.2
+
+### Patch Changes
+
+- 8e1c380: bump dependencies to latest versions
+- 6919888: add nonce generation, context provider, and hook for React and Remix apps
+
 ## 0.10.1
 
 ### Patch Changes
