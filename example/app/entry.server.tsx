@@ -4,7 +4,7 @@ import { PassThrough } from "node:stream";
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
-import isbot from "isbot";
+import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
 import { NonceContext } from "./nonce";
