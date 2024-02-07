@@ -28,6 +28,9 @@ on:
     tags:
       - "v0.0.0-experimental*"
 
+permissions:
+  id-token: write
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
