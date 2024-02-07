@@ -28,15 +28,15 @@
       "import": "./dist/index.js",
       "default": "./dist/index.cjs"
     },
-    "./remix": {
+    "./react": {
       "types": {
-        "require": "./dist/remix.d.cts",
-        "import": "./dist/remix.d.ts",
-        "default": "./dist/remix.d.cts"
+        "require": "./dist/react.d.cts",
+        "import": "./dist/react.d.ts",
+        "default": "./dist/react.d.cts"
       },
-      "require": "./dist/remix.cjs",
-      "import": "./dist/remix.js",
-      "default": "./dist/remix.cjs"
+      "require": "./dist/react.cjs",
+      "import": "./dist/react.js",
+      "default": "./dist/react.cjs"
     }
   },
   "main": "./dist/index.cjs",
