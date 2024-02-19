@@ -1,27 +1,30 @@
 import nodeCrypto from "node:crypto";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
+import {
+  CreateSecureHeaders,
+  createSecureHeaders as createSecureHeadersImpl,
+} from "./index";
 
 let NonceContext = React.createContext<string | undefined>(undefined);
-
-type NonceProviderProps = {
-  nonce: string;
-  children: React.ReactNode;
-};
-
-export function NonceProvider({ nonce, children }: NonceProviderProps) {
-  return (
-    <NonceContext.Provider value={nonce}>{children}</NonceContext.Provider>
-  );
-}
+let NonceProvider = NonceContext.Provider;
 
 export function useNonce(): string | undefined {
   return React.useContext(NonceContext);
 }
 
-export function createNonce(): string {
+function createNonce(): string {
   if ("randomUUID" in crypto) {
     return Buffer.from(crypto.randomUUID()).toString("hex");
   }
   return nodeCrypto.randomBytes(16).toString("hex");
+}
+
+export function createSecureHeaders(options: CreateSecureHeaders) {
+  let nonce = createNonce();
+  let headers = createSecureHeadersImpl(options);
+  let Provider = ({ children }: { children: React.ReactNode }) => {
+    return React.createElement(NonceProvider, { value: nonce }, children);
+  };
+
+  return { nonce, headers, NonceProvider: Provider };
 }
