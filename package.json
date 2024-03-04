@@ -7,8 +7,8 @@
     "dev": "pnpm run --parallel --recursive dev",
     "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
-    "test": "pnpm run --recursive --filter ./packages/* test --if-present",
-    "lint": "pnpm run --recursive --filter ./packages/* lint --if-present",
+    "test": "pnpm run --recursive --filter ./packages/* test",
+    "lint": "pnpm run --recursive --filter ./packages/* lint",
     "publish": "./scripts/publish.js",
     "publint": "publint ./packages/**",
     "prepublishOnly": "pnpm run build",
@@ -17,7 +17,7 @@
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --cache --cache-location ./node_modules/.cache/.prettiercache --ignore-path .gitignore --write .",
     "validate": "run-p build lint format publint typecheck",
-    "typecheck": "pnpm run --recursive --filter ./packages/* typecheck --if-present"
+    "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
