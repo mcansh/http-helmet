@@ -1,27 +1,16 @@
 import { defineConfig } from "tsup";
-import type { Options } from "tsup";
 import pkgJson from "./package.json";
 
 let external = Object.keys(pkgJson.dependencies || {});
 
-export default defineConfig(() => {
-  let options: Options = {
-    shims: true,
-    entry: ["src/index.ts", "src/react.tsx"],
-    sourcemap: true,
-    external,
-    tsconfig: "./tsconfig.json",
-    dts: true,
-  };
-
-  return [
-    {
-      ...options,
-      format: "cjs",
-    },
-    {
-      ...options,
-      format: "esm",
-    },
-  ];
+export default defineConfig({
+  shims: true,
+  entry: ["src/index.ts", "src/react.tsx"],
+  sourcemap: true,
+  external,
+  tsconfig: "./tsconfig.json",
+  dts: true,
+  target: "es2022",
+  clean: true,
+  format: ["cjs", "esm"],
 });

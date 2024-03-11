@@ -51,3 +51,7 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
 
   return new Headers(result);
 }
+
+export function createNonce(): string {
+  return Buffer.from(crypto.randomUUID()).toString("hex");
+}
