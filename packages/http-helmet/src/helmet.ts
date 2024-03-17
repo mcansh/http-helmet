@@ -43,6 +43,13 @@ export type CreateSecureHeaders = {
    */
 
   "Content-Security-Policy"?: ContentSecurityPolicy;
+
+  /**
+   * @description The HTTP Content-Security-Policy-Report-Only response header allows web developers to experiment with policies by monitoring (but not enforcing) their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI defined in a Reporting-Endpoints HTTP response header.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
+   */
+  "Content-Security-Policy-Report-Only"?: ContentSecurityPolicy;
+
   /**
    * @description The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>` or `<object>`. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
@@ -110,10 +117,28 @@ export type CreateSecureHeaders = {
 export function createSecureHeaders(options: CreateSecureHeaders) {
   let headers = new Headers();
 
+  if (
+    options["Content-Security-Policy"] &&
+    options["Content-Security-Policy-Report-Only"]
+  ) {
+    throw new Error(
+      "createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time",
+    );
+  }
+
   if (options["Content-Security-Policy"]) {
     headers.set(
       "Content-Security-Policy",
       createContentSecurityPolicy(options["Content-Security-Policy"]),
+    );
+  }
+
+  if (options["Content-Security-Policy-Report-Only"]) {
+    headers.set(
+      "Content-Security-Policy-Report-Only",
+      createContentSecurityPolicy(
+        options["Content-Security-Policy-Report-Only"],
+      ),
     );
   }
 

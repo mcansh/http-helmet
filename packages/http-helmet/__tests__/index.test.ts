@@ -145,3 +145,18 @@ it("throws an error on duplicate CSP keys", () => {
     `[Error: [createContentSecurityPolicy]: The key "default-src" was specified more than once.]`,
   );
 });
+
+it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-Report-Only" are set at the same time', () => {
+  expect(() =>
+    createSecureHeaders({
+      "Content-Security-Policy": {
+        defaultSrc: ["'self'"],
+      },
+      "Content-Security-Policy-Report-Only": {
+        defaultSrc: ["'self'"],
+      },
+    }),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time]`,
+  );
+});
