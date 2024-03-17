@@ -1,14 +1,5 @@
-import { LiteralUnion } from "type-fest";
+import { LiteralUnion, KebabCasedProperties } from "type-fest";
 import { QuotedSource, dashify, isQuoted } from "../utils.js";
-
-type Kebab<
-  T extends string,
-  A extends string = "",
-> = T extends `${infer F}${infer R}`
-  ? Kebab<R, `${A}${F extends Lowercase<F> ? "" : "-"}${Lowercase<F>}`>
-  : A;
-
-type KebabKeys<T> = { [K in keyof T as K extends string ? Kebab<K> : K]: T[K] };
 
 type ContentSecurityPolicyCamel = {
   childSrc?: Array<LiteralUnion<QuotedSource, string>>;
@@ -41,7 +32,8 @@ type ContentSecurityPolicyCamel = {
   upgradeInsecureRequests?: boolean;
 };
 
-type ContentSecurityPolicyKebab = KebabKeys<ContentSecurityPolicyCamel>;
+type ContentSecurityPolicyKebab =
+  KebabCasedProperties<ContentSecurityPolicyCamel>;
 
 export interface ContentSecurityPolicy
   extends ContentSecurityPolicyCamel,
