@@ -1,7 +1,7 @@
-import { LiteralUnion } from "type-fest";
+import { LiteralUnion, KebabCasedProperties } from "type-fest";
 import { QuotedSource, dashify, isQuoted } from "../utils.js";
 
-export type ContentSecurityPolicy = {
+type ContentSecurityPolicyCamel = {
   childSrc?: Array<LiteralUnion<QuotedSource, string>>;
   connectSrc?: Array<LiteralUnion<QuotedSource, string>>;
   defaultSrc?: Array<LiteralUnion<QuotedSource, string>>;
@@ -32,7 +32,14 @@ export type ContentSecurityPolicy = {
   upgradeInsecureRequests?: boolean;
 };
 
-const reservedCSPKeywords = new Set([
+type ContentSecurityPolicyKebab =
+  KebabCasedProperties<ContentSecurityPolicyCamel>;
+
+export interface ContentSecurityPolicy
+  extends ContentSecurityPolicyCamel,
+    ContentSecurityPolicyKebab {}
+
+let reservedCSPKeywords = new Set([
   "self",
   "none",
   "unsafe-inline",
@@ -44,30 +51,38 @@ export function createContentSecurityPolicy(
 ): string {
   let { upgradeInsecureRequests, ...rest } = settings;
   let policy: Array<string> = [];
+  let seenKeys: Set<string> = new Set();
 
   if (settings.upgradeInsecureRequests) {
     policy.push("upgrade-insecure-requests");
   }
 
-  for (let [key, values] of Object.entries(rest)) {
-    if (!Array.isArray(values)) {
+  for (let [originalKey, values] of Object.entries(rest)) {
+    let key = dashify(originalKey);
+    if (seenKeys.has(key)) {
       throw new Error(
-        `[createContentSecurityPolicy]: The value of the "${key}" must be array of strings.`,
+        `[createContentSecurityPolicy]: The key "${originalKey}" was specified more than once.`,
       );
     }
 
-    const allowedValuesSeen: Set<string> = new Set();
+    let allowedValuesSeen: Set<string> = new Set();
+
+    if (!Array.isArray(values)) {
+      throw new Error(
+        `[createContentSecurityPolicy]: The value of the "${originalKey}" must be array of strings.`,
+      );
+    }
 
     values.forEach((allowedValue) => {
       if (typeof allowedValue !== "string") {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`,
+          `[createContentSecurityPolicy]: The value of the "${originalKey}" contains a non-string, which is not supported.`,
         );
       }
 
       if (allowedValuesSeen.has(allowedValue)) {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${key}" contains duplicates, which it shouldn't.`,
+          `[createContentSecurityPolicy]: The value of the "${originalKey}" contains duplicates, which it shouldn't.`,
         );
       }
 
@@ -80,7 +95,8 @@ export function createContentSecurityPolicy(
       allowedValuesSeen.add(allowedValue);
     });
 
-    policy.push(`${dashify(key)} ${values.filter(Boolean).join(" ")}`);
+    policy.push(`${key} ${values.filter(Boolean).join(" ")}`);
+    seenKeys.add(key);
   }
 
   return policy.join("; ");

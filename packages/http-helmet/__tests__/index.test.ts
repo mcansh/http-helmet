@@ -118,3 +118,30 @@ describe("mergeHeaders", () => {
     expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
   });
 });
+
+it("allows mixing camel and kebab case for CSP keys", () => {
+  let secureHeaders = createSecureHeaders({
+    "Content-Security-Policy": {
+      "default-src": ["'self'"],
+      imgSrc: ["'none'"],
+      "frame-src": ["https://example.com"],
+    },
+  });
+
+  expect(secureHeaders.get("Content-Security-Policy")).toBe(
+    "default-src 'self'; img-src 'none'; frame-src https://example.com",
+  );
+});
+
+it("throws an error on duplicate CSP keys", () => {
+  expect(() =>
+    createSecureHeaders({
+      "Content-Security-Policy": {
+        defaultSrc: ["'self'"],
+        "default-src": ["'self'"],
+      },
+    }),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: [createContentSecurityPolicy]: The key "default-src" was specified more than once.]`,
+  );
+});
