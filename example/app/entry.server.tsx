@@ -7,7 +7,7 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
-import { NonceContext } from "./nonce";
+import { NonceProvider, createNonce } from "@mcansh/http-helmet/react";
 
 const ABORT_DELAY = 5_000;
 
@@ -22,7 +22,7 @@ export default function handleRequest(
     ? "onAllReady"
     : "onShellReady";
 
-  let nonce = crypto.randomBytes(16).toString("base64");
+  let nonce = createNonce();
   let secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
       defaultSrc: ["'self'"],
@@ -40,13 +40,13 @@ export default function handleRequest(
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
-      <NonceContext.Provider value={nonce}>
+      <NonceProvider nonce={nonce}>
         <RemixServer
           context={remixContext}
           url={request.url}
           abortDelay={ABORT_DELAY}
         />
-      </NonceContext.Provider>,
+      </NonceProvider>,
       {
         nonce,
         [callback]() {
