@@ -148,6 +148,7 @@ it("throws an error on duplicate CSP keys", () => {
 
 it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-Report-Only" are set at the same time', () => {
   expect(() =>
+    // @ts-expect-error - this is intentional, we want to test the error
     createSecureHeaders({
       "Content-Security-Policy": {
         defaultSrc: ["'self'"],

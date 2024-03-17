@@ -1,3 +1,4 @@
+import { RequireExactlyOne } from "type-fest";
 import {
   ContentSecurityPolicy,
   createContentSecurityPolicy,
@@ -36,44 +37,31 @@ export type CrossOriginOpenerPolicy =
   | "same-origin";
 export type XSSProtection = "0" | "1" | "1; mode=block" | `1; report=${string}`;
 
-export type CreateSecureHeaders = {
-  /**
-   * @description Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft, to site defacement, to malware distribution.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-   */
-
-  "Content-Security-Policy"?: ContentSecurityPolicy;
-
-  /**
-   * @description The HTTP Content-Security-Policy-Report-Only response header allows web developers to experiment with policies by monitoring (but not enforcing) their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI defined in a Reporting-Endpoints HTTP response header.
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-   */
-  "Content-Security-Policy-Report-Only"?: ContentSecurityPolicy;
-
+type BaseSecureHeaders = {
   /**
    * @description The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>` or `<object>`. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
    */
-
   "X-Frame-Options"?: FrameOptions;
+
   /**
    * @description The HTTP Feature-Policy header provides a mechanism to allow and deny the use of browser features in its own frame, and in content within any <iframe> elements in the document.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
    */
-
   "Permissions-Policy"?: PermissionsPolicy;
+
   /**
    * @description The Referrer-Policy HTTP header controls how much referrer information (sent with the Referer header) should be included with requests. Aside from the HTTP header, you can set this policy in HTML.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
    */
-
   "Referrer-Policy"?: ReferrerPolicy;
+
   /**
    * @description HTTP Strict-Transport-Security response header (often abbreviated as HSTS) informs browsers that the site should only be accessed using HTTPS, and that any future attempts to access it using HTTP should automatically be converted to HTTPS.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
    */
-
   "Strict-Transport-Security"?: StrictTransportSecurity;
+
   /**
    * @description The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
@@ -84,8 +72,8 @@ export type CreateSecureHeaders = {
    * @description The X-Content-Type-Options response HTTP header is a marker used by the server to indicate that the MIME types advertised in the Content-Type headers should be followed and not be changed. The header allows you to avoid MIME type sniffing by saying that the MIME types are deliberately configured.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
    */
-
   "X-Content-Type-Options"?: ContentTypeOptions;
+
   /**
    * @description The HTTP Cross-Origin-Opener-Policy (COOP) response header allows you to ensure a top-level document does not share a browsing context group with cross-origin documents.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
@@ -113,6 +101,25 @@ export type CreateSecureHeaders = {
   */
   "Cross-Origin-Resource-Policy"?: "same-site" | "same-origin" | "cross-origin";
 };
+
+export type CreateSecureHeaders = RequireExactlyOne<
+  {
+    /**
+     * @description Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft, to site defacement, to malware distribution.
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+     */
+
+    "Content-Security-Policy"?: ContentSecurityPolicy;
+
+    /**
+     * @description The HTTP Content-Security-Policy-Report-Only response header allows web developers to experiment with policies by monitoring (but not enforcing) their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI defined in a Reporting-Endpoints HTTP response header.
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
+     */
+    "Content-Security-Policy-Report-Only"?: ContentSecurityPolicy;
+  },
+  "Content-Security-Policy" | "Content-Security-Policy-Report-Only"
+> &
+  BaseSecureHeaders;
 
 export function createSecureHeaders(options: CreateSecureHeaders) {
   let headers = new Headers();
