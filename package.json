@@ -27,8 +27,8 @@
   ],
   "dependencies": {
     "@changesets/cli": "^2.27.1",
-    "@manypkg/get-packages": "^2.2.0",
-    "@types/node": "^20.11.16",
+    "@manypkg/get-packages": "^2.2.1",
+    "@types/node": "^20.11.28",
     "chalk": "^5.3.0",
     "del-cli": "^5.1.0",
     "glob": "^10.3.10",
@@ -38,10 +38,10 @@
     "prompt-confirm": "^2.0.4",
     "publint": "^0.2.7",
     "semver": "^7.6.0",
-    "tsup": "^8.0.1",
-    "type-fest": "^4.10.2",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "tsup": "^8.0.2",
+    "type-fest": "^4.12.0",
+    "typescript": "^5.4.2",
+    "vitest": "^1.4.0"
   },
   "packageManager": "pnpm@8.15.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
 }
