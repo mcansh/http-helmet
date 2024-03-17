@@ -1,5 +1,31 @@
 # @mcansh/http-helmet
 
+## 0.10.3
+
+### Patch Changes
+
+- c4b0b6a: allow using kebab case keys for csp
+
+  ```js
+  let secureHeaders = createSecureHeaders({
+    "Content-Security-Policy": {
+      "default-src": ["'self'"],
+      "img-src": ["'self'", "data:"],
+    },
+  });
+  ```
+
+- 1cee380: allow setting Content-Security-Policy-Report-Only
+
+  ```js
+  let secureHeaders = createSecureHeaders({
+    "Content-Security-Policy-Report-Only": {
+      "default-src": ["'self'"],
+      "img-src": ["'self'", "data:"],
+    },
+  });
+  ```
+
 ## 0.10.2
 
 ### Patch Changes
