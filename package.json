@@ -16,7 +16,7 @@
     "changeset": "changeset",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "changeset:release": "pnpm run build && changeset publish",
-    "format": "prettier --cache --cache-location ./node_modules/.cache/.prettiercache --ignore-path .gitignore --write .",
+    "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
     "validate": "run-p build lint format publint typecheck",
     "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
   },
@@ -40,9 +40,9 @@
     "publint": "^0.2.7",
     "semver": "^7.6.0",
     "tsup": "^8.0.2",
-    "type-fest": "^4.12.0",
+    "type-fest": "^4.14.0",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
   },
-  "packageManager": "pnpm@8.15.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
+  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
 }
