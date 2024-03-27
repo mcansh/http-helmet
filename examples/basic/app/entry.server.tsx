@@ -26,8 +26,10 @@ export default function handleRequest(
     "Content-Security-Policy": {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", `'nonce-${nonce}'`],
-      // prettier-ignore
-      connectSrc: process.env.NODE_ENV === "development" ? ["ws:", "'self'"] : ["'self'"],
+      connectSrc: [
+        "'self'",
+        ...(process.env.NODE_ENV === "development" ? ["ws:", ""] : []),
+      ],
     },
     "Strict-Transport-Security": {
       maxAge: 31536000,
