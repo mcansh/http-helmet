@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "del dist",
     "predev": "pnpm run clean",
-    "dev": "pnpm run --parallel --recursive dev",
+    "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
+    "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
     "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
     "test": "pnpm run --recursive --filter ./packages/* test",
@@ -23,7 +24,7 @@
   "license": "MIT",
   "workspaces": [
     "packages/*",
-    "example"
+    "examples/*"
   ],
   "dependencies": {
     "@changesets/cli": "^2.27.1",
