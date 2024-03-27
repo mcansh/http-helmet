@@ -16,7 +16,7 @@
     "changeset": "changeset",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "changeset:release": "pnpm run build && changeset publish",
-    "format": "prettier --cache --cache-location ./node_modules/.cache/.prettiercache --ignore-path .gitignore --write .",
+    "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
     "validate": "run-p build lint format publint typecheck",
     "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
   },
