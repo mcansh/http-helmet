@@ -1,3 +1,4 @@
 dist
 .ds_store
 node_modules
+*.tgz

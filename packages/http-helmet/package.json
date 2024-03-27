@@ -49,7 +49,7 @@
     "package.json"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && attw $(npm pack)",
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
