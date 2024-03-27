@@ -20,6 +20,7 @@ jobs:
 
       - name: 🟧 Get pnpm version
         id: pnpm-version
+        shell: bash
         run: |
           # get pnpm version from package.json packageManager field
           VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
@@ -61,6 +62,7 @@ jobs:
 
       - name: 🟧 Get pnpm version
         id: pnpm-version
+        shell: bash
         run: |
           # get pnpm version from package.json packageManager field
           VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
