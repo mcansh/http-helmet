@@ -1,4 +1,3 @@
-import nodeCrypto from "node:crypto";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
 
@@ -20,8 +19,5 @@ export function useNonce(): string | undefined {
 }
 
 export function createNonce(): string {
-  if ("randomUUID" in crypto) {
-    return Buffer.from(crypto.randomUUID()).toString("hex");
-  }
-  return nodeCrypto.randomBytes(16).toString("hex");
+  return Buffer.from(crypto.randomUUID()).toString("hex");
 }
