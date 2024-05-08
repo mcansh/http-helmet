@@ -32,7 +32,7 @@ jobs:
           node-version-file: ".nvmrc"
 
       - name: 🟧 Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
@@ -74,7 +74,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: 🟧 Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
