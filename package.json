@@ -41,7 +41,7 @@
     "semver": "^7.6.0",
     "tsup": "^8.0.2",
     "type-fest": "^4.14.0",
-    "typescript": "^5.4.3",
+    "typescript": "^5.5.2",
     "vitest": "^1.4.0"
   },
   "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
