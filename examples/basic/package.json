@@ -11,16 +11,16 @@
   },
   "dependencies": {
     "@mcansh/http-helmet": "workspace:*",
-    "@remix-run/node": "^2.8.1",
-    "@remix-run/react": "^2.8.1",
-    "@remix-run/serve": "^2.8.1",
+    "@remix-run/node": "^2.11.1",
+    "@remix-run/react": "^2.11.1",
+    "@remix-run/serve": "^2.11.1",
     "isbot": "^5.1.13",
     "react": "^18.3.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^2.8.1",
-    "@remix-run/eslint-config": "^2.8.1",
+    "@remix-run/dev": "^2.11.1",
+    "@remix-run/eslint-config": "^2.11.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.2.23",
     "eslint": "^8.57.0",
