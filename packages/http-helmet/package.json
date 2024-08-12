@@ -56,7 +56,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "type-fest": "^4.14.0"
+    "type-fest": "^4.24.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
