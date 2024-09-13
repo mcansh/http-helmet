@@ -1,5 +1,25 @@
 # @mcansh/http-helmet
 
+## 0.11.0
+
+### Minor Changes
+
+- 9b7cc24: feat: filter out falsy values from csp
+
+  ```js
+  createContentSecurityPolicy({
+    "connect-src": [undefined, "'self'", undefined],
+  });
+
+  // => `"connect-src 'self'"`
+  ```
+
+### Patch Changes
+
+- 9b7cc24: apply `upgrade-insecure-requests` when using kebab case to set it
+
+  previously was only applying the `upgrade-insecure-requests` directive when using camelCase (upgradeInsecureRequests)
+
 ## 0.10.3
 
 ### Patch Changes
