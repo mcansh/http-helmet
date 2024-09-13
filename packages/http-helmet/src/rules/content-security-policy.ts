@@ -37,6 +37,10 @@ type ContentSecurityPolicyCamel = {
 type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
+export type ContentSecurityPolicy =
+  | ContentSecurityPolicyCamel
+  | ContentSecurityPolicyKebab;
+
 let reservedCSPKeywords = new Set([
   "self",
   "none",
@@ -51,7 +55,7 @@ export function createContentSecurityPolicy(
   settings: ContentSecurityPolicyKebab,
 ): string;
 export function createContentSecurityPolicy(
-  settings: ContentSecurityPolicyCamel | ContentSecurityPolicyKebab,
+  settings: ContentSecurityPolicy,
 ): string {
   let policy: Array<string> = [];
   let seenKeys: Set<string> = new Set();
