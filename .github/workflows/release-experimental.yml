@@ -49,6 +49,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🟧 Get pnpm version
+        id: pnpm-version
+        shell: bash
+        run: |
+          # get pnpm version from package.json packageManager field
+          VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
@@ -57,10 +65,11 @@ jobs:
       - name: 🟧 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
+              cwd: ./
 
       - name: 🏗 Build
         run: yarn build

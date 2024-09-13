@@ -27,22 +27,22 @@
     "examples/*"
   ],
   "dependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@manypkg/get-packages": "^2.2.1",
-    "@types/node": "^20.12.2",
+    "@changesets/cli": "^2.27.8",
+    "@manypkg/get-packages": "^2.2.2",
+    "@types/node": "^22.5.4",
     "chalk": "^5.3.0",
     "del-cli": "^5.1.0",
-    "glob": "^10.3.12",
+    "glob": "^11.0.0",
     "jsonfile": "^6.1.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.3",
     "prompt-confirm": "^2.0.4",
-    "publint": "^0.2.7",
-    "semver": "^7.6.0",
-    "tsup": "^8.0.2",
-    "type-fest": "^4.14.0",
-    "typescript": "^5.5.3",
-    "vitest": "^1.4.0"
+    "publint": "^0.2.10",
+    "semver": "^7.6.3",
+    "tsup": "^8.2.4",
+    "type-fest": "^4.26.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.0"
   },
-  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }
