@@ -1,5 +1,5 @@
 import { LiteralUnion, KebabCasedProperties } from "type-fest";
-import { QuotedSource, dashify, isQuoted } from "../utils.js";
+import { QuotedSource, convertCamelToDash, isQuoted } from "../utils.js";
 
 type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
@@ -73,7 +73,7 @@ export function createContentSecurityPolicy(
   }
 
   for (let [originalKey, values] of Object.entries(settings)) {
-    let key = dashify(originalKey);
+    let key = convertCamelToDash(originalKey);
     if (seenKeys.has(key)) {
       throw new Error(
         `[createContentSecurityPolicy]: The key "${originalKey}" was specified more than once.`,

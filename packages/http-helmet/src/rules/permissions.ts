@@ -1,5 +1,5 @@
 import type { LiteralUnion } from "type-fest";
-import { dashify } from "../utils.js";
+import { convertCamelToDash } from "../utils.js";
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
@@ -82,7 +82,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
         );
       }
 
-      const featureKeyDashed = dashify(key);
+      const featureKeyDashed = convertCamelToDash(key);
       const featureValuesUnion = featureValues
         .map((value) => {
           if (reservedPermissionKeywords.has(value)) {
