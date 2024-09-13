@@ -1,7 +1,7 @@
 import { LiteralUnion, KebabCasedProperties } from "type-fest";
-import { QuotedSource, dashify, isQuoted } from "../utils.js";
+import { QuotedSource, convertCamelToDash, isQuoted } from "../utils.js";
 
-type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>
+type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
 type ContentSecurityPolicyCamel = {
   childSrc?: CspSetting;
@@ -37,9 +37,9 @@ type ContentSecurityPolicyCamel = {
 type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
-export interface ContentSecurityPolicy
-  extends ContentSecurityPolicyCamel,
-    ContentSecurityPolicyKebab {}
+export type ContentSecurityPolicy =
+  | ContentSecurityPolicyCamel
+  | ContentSecurityPolicyKebab;
 
 let reservedCSPKeywords = new Set([
   "self",
@@ -49,22 +49,35 @@ let reservedCSPKeywords = new Set([
 ]);
 
 export function createContentSecurityPolicy(
+  settings: ContentSecurityPolicyCamel,
+): string;
+export function createContentSecurityPolicy(
+  settings: ContentSecurityPolicyKebab,
+): string;
+export function createContentSecurityPolicy(
   settings: ContentSecurityPolicy,
 ): string {
   let policy: Array<string> = [];
   let seenKeys: Set<string> = new Set();
 
   if (
-    settings.upgradeInsecureRequests ||
-    settings["upgrade-insecure-requests"]
+    "upgradeInsecureRequests" in settings &&
+    settings.upgradeInsecureRequests
   ) {
     policy.push("upgrade-insecure-requests");
     delete settings.upgradeInsecureRequests;
+  }
+
+  if (
+    "upgrade-insecure-requests" in settings &&
+    settings["upgrade-insecure-requests"]
+  ) {
+    policy.push("upgrade-insecure-requests");
     delete settings["upgrade-insecure-requests"];
   }
 
   for (let [originalKey, values] of Object.entries(settings)) {
-    let key = dashify(originalKey);
+    let key = convertCamelToDash(originalKey);
     if (seenKeys.has(key)) {
       throw new Error(
         `[createContentSecurityPolicy]: The key "${originalKey}" was specified more than once.`,
