@@ -49,15 +49,19 @@ let reservedCSPKeywords = new Set([
 export function createContentSecurityPolicy(
   settings: ContentSecurityPolicy,
 ): string {
-  let { upgradeInsecureRequests, ...rest } = settings;
   let policy: Array<string> = [];
   let seenKeys: Set<string> = new Set();
 
-  if (settings.upgradeInsecureRequests) {
+  if (
+    settings.upgradeInsecureRequests ||
+    settings["upgrade-insecure-requests"]
+  ) {
     policy.push("upgrade-insecure-requests");
+    delete settings.upgradeInsecureRequests;
+    delete settings["upgrade-insecure-requests"];
   }
 
-  for (let [originalKey, values] of Object.entries(rest)) {
+  for (let [originalKey, values] of Object.entries(settings)) {
     let key = dashify(originalKey);
     if (seenKeys.has(key)) {
       throw new Error(
@@ -73,7 +77,11 @@ export function createContentSecurityPolicy(
       );
     }
 
-    values.forEach((allowedValue) => {
+    let definedValues = values.filter(
+      (v): v is string => typeof v !== "undefined",
+    );
+
+    definedValues.forEach((allowedValue) => {
       if (typeof allowedValue !== "string") {
         throw new Error(
           `[createContentSecurityPolicy]: The value of the "${originalKey}" contains a non-string, which is not supported.`,
@@ -95,7 +103,13 @@ export function createContentSecurityPolicy(
       allowedValuesSeen.add(allowedValue);
     });
 
-    policy.push(`${key} ${values.filter(Boolean).join(" ")}`);
+    if (definedValues.length === 0) {
+      throw new Error(
+        `[createContentSecurityPolicy]: key "${key}" has no defined options`,
+      );
+    }
+
+    policy.push(`${key} ${definedValues.join(" ")}`);
     seenKeys.add(key);
   }
 
