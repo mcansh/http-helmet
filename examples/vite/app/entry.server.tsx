@@ -26,12 +26,12 @@ export default function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _loadContext: AppLoadContext,
 ) {
-  let callback = isbot(request.headers.get("user-agent"))
+  const callback = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
     : "onShellReady";
 
-  let nonce = createNonce();
-  let secureHeaders = createSecureHeaders({
+  const nonce = createNonce();
+  const secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
       "default-src": ["'self'"],
       "script-src": [

@@ -178,7 +178,7 @@ it("throws an error when there's no define values for a csp key", () => {
   expect(() =>
     createContentSecurityPolicy({
       "base-uri": [undefined],
-      defaultSrc: ["'none'"],
+      "default-src": ["'none'"],
     }),
   ).toThrowErrorMatchingInlineSnapshot(
     `[Error: [createContentSecurityPolicy]: key "base-uri" has no defined options]`,

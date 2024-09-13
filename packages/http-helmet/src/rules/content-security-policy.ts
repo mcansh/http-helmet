@@ -1,7 +1,7 @@
 import { LiteralUnion, KebabCasedProperties } from "type-fest";
 import { QuotedSource, dashify, isQuoted } from "../utils.js";
 
-type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>
+type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
 type ContentSecurityPolicyCamel = {
   childSrc?: CspSetting;
@@ -37,10 +37,6 @@ type ContentSecurityPolicyCamel = {
 type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
-export interface ContentSecurityPolicy
-  extends ContentSecurityPolicyCamel,
-    ContentSecurityPolicyKebab {}
-
 let reservedCSPKeywords = new Set([
   "self",
   "none",
@@ -49,17 +45,30 @@ let reservedCSPKeywords = new Set([
 ]);
 
 export function createContentSecurityPolicy(
-  settings: ContentSecurityPolicy,
+  settings: ContentSecurityPolicyCamel,
+): string;
+export function createContentSecurityPolicy(
+  settings: ContentSecurityPolicyKebab,
+): string;
+export function createContentSecurityPolicy(
+  settings: ContentSecurityPolicyCamel | ContentSecurityPolicyKebab,
 ): string {
   let policy: Array<string> = [];
   let seenKeys: Set<string> = new Set();
 
   if (
-    settings.upgradeInsecureRequests ||
-    settings["upgrade-insecure-requests"]
+    "upgradeInsecureRequests" in settings &&
+    settings.upgradeInsecureRequests
   ) {
     policy.push("upgrade-insecure-requests");
     delete settings.upgradeInsecureRequests;
+  }
+
+  if (
+    "upgrade-insecure-requests" in settings &&
+    settings["upgrade-insecure-requests"]
+  ) {
+    policy.push("upgrade-insecure-requests");
     delete settings["upgrade-insecure-requests"];
   }
 
@@ -104,6 +113,8 @@ export function createContentSecurityPolicy(
 
       allowedValuesSeen.add(allowedValue);
     });
+
+    console.log({ key, definedValues });
 
     if (definedValues.length === 0) {
       throw new Error(
