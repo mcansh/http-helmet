@@ -1,34 +1,36 @@
 import { LiteralUnion, KebabCasedProperties } from "type-fest";
 import { QuotedSource, dashify, isQuoted } from "../utils.js";
 
+type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>
+
 type ContentSecurityPolicyCamel = {
-  childSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  connectSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  defaultSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  fontSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  frameSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  imgSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  manifestSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  mediaSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  objectSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  prefetchSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  scriptSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  scriptSrcElem?: Array<LiteralUnion<QuotedSource, string>>;
-  scriptSrcAttr?: Array<LiteralUnion<QuotedSource, string>>;
-  styleSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  styleSrcElem?: Array<LiteralUnion<QuotedSource, string>>;
-  styleSrcAttr?: Array<LiteralUnion<QuotedSource, string>>;
-  workerSrc?: Array<LiteralUnion<QuotedSource, string>>;
-  baseUri?: Array<LiteralUnion<QuotedSource, string>>;
-  sandbox?: Array<LiteralUnion<QuotedSource, string>>;
-  formAction?: Array<LiteralUnion<QuotedSource, string>>;
-  frameAncestors?: Array<LiteralUnion<QuotedSource, string>>;
-  navigateTo?: Array<LiteralUnion<QuotedSource, string>>;
-  reportUri?: Array<LiteralUnion<QuotedSource, string>>;
-  reportTo?: Array<LiteralUnion<QuotedSource, string>>;
-  requireSriFor?: Array<LiteralUnion<QuotedSource, string>>;
-  requireTrustedTypesFor?: Array<LiteralUnion<QuotedSource, string>>;
-  trustedTypes?: Array<LiteralUnion<QuotedSource, string>>;
+  childSrc?: CspSetting;
+  connectSrc?: CspSetting;
+  defaultSrc?: CspSetting;
+  fontSrc?: CspSetting;
+  frameSrc?: CspSetting;
+  imgSrc?: CspSetting;
+  manifestSrc?: CspSetting;
+  mediaSrc?: CspSetting;
+  objectSrc?: CspSetting;
+  prefetchSrc?: CspSetting;
+  scriptSrc?: CspSetting;
+  scriptSrcElem?: CspSetting;
+  scriptSrcAttr?: CspSetting;
+  styleSrc?: CspSetting;
+  styleSrcElem?: CspSetting;
+  styleSrcAttr?: CspSetting;
+  workerSrc?: CspSetting;
+  baseUri?: CspSetting;
+  sandbox?: CspSetting;
+  formAction?: CspSetting;
+  frameAncestors?: CspSetting;
+  navigateTo?: CspSetting;
+  reportUri?: CspSetting;
+  reportTo?: CspSetting;
+  requireSriFor?: CspSetting;
+  requireTrustedTypesFor?: CspSetting;
+  trustedTypes?: CspSetting;
   upgradeInsecureRequests?: boolean;
 };
 
@@ -49,15 +51,19 @@ let reservedCSPKeywords = new Set([
 export function createContentSecurityPolicy(
   settings: ContentSecurityPolicy,
 ): string {
-  let { upgradeInsecureRequests, ...rest } = settings;
   let policy: Array<string> = [];
   let seenKeys: Set<string> = new Set();
 
-  if (settings.upgradeInsecureRequests) {
+  if (
+    settings.upgradeInsecureRequests ||
+    settings["upgrade-insecure-requests"]
+  ) {
     policy.push("upgrade-insecure-requests");
+    delete settings.upgradeInsecureRequests;
+    delete settings["upgrade-insecure-requests"];
   }
 
-  for (let [originalKey, values] of Object.entries(rest)) {
+  for (let [originalKey, values] of Object.entries(settings)) {
     let key = dashify(originalKey);
     if (seenKeys.has(key)) {
       throw new Error(
@@ -73,7 +79,11 @@ export function createContentSecurityPolicy(
       );
     }
 
-    values.forEach((allowedValue) => {
+    let definedValues = values.filter(
+      (v): v is string => typeof v !== "undefined",
+    );
+
+    definedValues.forEach((allowedValue) => {
       if (typeof allowedValue !== "string") {
         throw new Error(
           `[createContentSecurityPolicy]: The value of the "${originalKey}" contains a non-string, which is not supported.`,
@@ -95,7 +105,13 @@ export function createContentSecurityPolicy(
       allowedValuesSeen.add(allowedValue);
     });
 
-    policy.push(`${key} ${values.filter(Boolean).join(" ")}`);
+    if (definedValues.length === 0) {
+      throw new Error(
+        `[createContentSecurityPolicy]: key "${key}" has no defined options`,
+      );
+    }
+
+    policy.push(`${key} ${definedValues.join(" ")}`);
     seenKeys.add(key);
   }
 
