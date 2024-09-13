@@ -114,8 +114,6 @@ export function createContentSecurityPolicy(
       allowedValuesSeen.add(allowedValue);
     });
 
-    console.log({ key, definedValues });
-
     if (definedValues.length === 0) {
       throw new Error(
         `[createContentSecurityPolicy]: key "${key}" has no defined options`,
