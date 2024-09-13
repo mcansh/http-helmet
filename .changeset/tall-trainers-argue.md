@@ -1,5 +1,5 @@
 ---
-"@fake-scope/fake-pkg": patch
+"@mcansh/http-helmet": patch
 ---
 
 apply `upgrade-insecure-requests` when using kebab case to set it
