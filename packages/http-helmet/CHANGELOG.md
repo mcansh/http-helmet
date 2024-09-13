@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.11.1
+
+### Patch Changes
+
+- f0a2ee3: feat: only allow using kebab or camel case, not both
+
 ## 0.11.0
 
 ### Minor Changes
