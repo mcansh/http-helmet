@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { createSecureHeaders, mergeHeaders } from "../src/index.js";
+import {
+  createContentSecurityPolicy,
+  createSecureHeaders,
+  mergeHeaders,
+} from "../src/index.js";
 
 it("generates a config", () => {
   let headers = createSecureHeaders({
@@ -160,4 +164,41 @@ it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-
   ).toThrowErrorMatchingInlineSnapshot(
     `[Error: createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time]`,
   );
+});
+
+it("allows and filters out `undefined` values", () => {
+  let csp = createContentSecurityPolicy({
+    "connect-src": [undefined, "'self'", undefined],
+  });
+
+  expect(csp).toMatchInlineSnapshot(`"connect-src 'self'"`);
+});
+
+it("throws an error when there's no define values for a csp key", () => {
+  expect(() =>
+    createContentSecurityPolicy({
+      "base-uri": [undefined],
+      defaultSrc: ["'none'"],
+    }),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: [createContentSecurityPolicy]: key "base-uri" has no defined options]`,
+  );
+});
+
+describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests", () => {
+  it("upgradeInsecureRequests", () => {
+    expect(
+      createContentSecurityPolicy({
+        upgradeInsecureRequests: true,
+      }),
+    ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
+  });
+
+  it("upgrade-insecure-requests", () => {
+    expect(
+      createContentSecurityPolicy({
+        "upgrade-insecure-requests": true,
+      }),
+    ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
+  });
 });
