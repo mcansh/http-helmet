@@ -27,7 +27,7 @@
     "examples/*"
   ],
   "dependencies": {
-    "@changesets/cli": "^2.27.8",
+    "@changesets/cli": "^2.27.9",
     "@manypkg/get-packages": "^2.2.2",
     "@types/node": "^22.7.4",
     "chalk": "^5.3.0",
