@@ -44,6 +44,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "change-case": "^5.4.4",
     "type-fest": "^4.26.1"
   },
   "devDependencies": {

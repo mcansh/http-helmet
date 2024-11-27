@@ -33,6 +33,7 @@ export default function handleRequest(
   const nonce = createNonce();
   const secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
+      "upgrade-insecure-requests": process.env.NODE_ENV === "production",
       "default-src": ["'self'"],
       "script-src": [
         "'self'",
