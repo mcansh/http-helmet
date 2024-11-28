@@ -1,8 +1,6 @@
-import { RequireExactlyOne } from "type-fest";
-import {
-  ContentSecurityPolicy,
-  createContentSecurityPolicy,
-} from "./rules/content-security-policy.js";
+import { RequireOneOrNone } from "type-fest";
+import { createContentSecurityPolicy } from "./rules/content-security-policy.js";
+import type { PublicContentSecurityPolicy } from "./rules/content-security-policy.js";
 import {
   createPermissionsPolicy,
   PermissionsPolicy,
@@ -12,8 +10,8 @@ import {
   StrictTransportSecurity,
 } from "./rules/strict-transport-security.js";
 
+export { PublicContentSecurityPolicy as ContentSecurityPolicy };
 export { createContentSecurityPolicy } from "./rules/content-security-policy.js";
-export type { ContentSecurityPolicy } from "./rules/content-security-policy.js";
 export { createPermissionsPolicy } from "./rules/permissions.js";
 export type { PermissionsPolicy } from "./rules/permissions.js";
 export { createStrictTransportSecurity } from "./rules/strict-transport-security.js";
@@ -102,20 +100,20 @@ type BaseSecureHeaders = {
   "Cross-Origin-Resource-Policy"?: "same-site" | "same-origin" | "cross-origin";
 };
 
-export type CreateSecureHeaders = RequireExactlyOne<
+export type CreateSecureHeaders = RequireOneOrNone<
   {
     /**
      * @description Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft, to site defacement, to malware distribution.
      * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
      */
 
-    "Content-Security-Policy"?: ContentSecurityPolicy;
+    "Content-Security-Policy"?: PublicContentSecurityPolicy;
 
     /**
      * @description The HTTP Content-Security-Policy-Report-Only response header allows web developers to experiment with policies by monitoring (but not enforcing) their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI defined in a Reporting-Endpoints HTTP response header.
      * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
      */
-    "Content-Security-Policy-Report-Only"?: ContentSecurityPolicy;
+    "Content-Security-Policy-Report-Only"?: PublicContentSecurityPolicy;
   },
   "Content-Security-Policy" | "Content-Security-Policy-Report-Only"
 > &

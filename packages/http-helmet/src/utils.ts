@@ -2,12 +2,6 @@ export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
 }
 
-export function convertCamelToDash(input: string): string {
-  return input.replace(/[A-Z]/g, (capitalLetter) => {
-    return `-${capitalLetter.toLowerCase()}`;
-  });
-}
-
 type Algorithm = "sha256" | "sha384" | "sha512";
 
 type HashSource = `'${Algorithm}-${string}'`;

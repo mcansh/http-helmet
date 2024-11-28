@@ -1,5 +1,6 @@
 import { LiteralUnion, KebabCasedProperties } from "type-fest";
-import { QuotedSource, convertCamelToDash, isQuoted } from "../utils.js";
+import { QuotedSource, isQuoted } from "../utils.js";
+import { kebabCase } from "change-case";
 
 type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
@@ -37,9 +38,13 @@ type ContentSecurityPolicyCamel = {
 type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
-export type ContentSecurityPolicy =
+type ContentSecurityPolicy =
   | ContentSecurityPolicyCamel
   | ContentSecurityPolicyKebab;
+
+export type PublicContentSecurityPolicy = Parameters<
+  typeof createContentSecurityPolicy
+>[0];
 
 let reservedCSPKeywords = new Set([
   "self",
@@ -57,38 +62,34 @@ export function createContentSecurityPolicy(
 export function createContentSecurityPolicy(
   settings: ContentSecurityPolicy,
 ): string {
+  let { "upgrade-insecure-requests": upgradeInsecureRequests, ...rest } =
+    Object.entries(settings).reduce<ContentSecurityPolicyKebab>(
+      (acc, [key, value]) => {
+        let kebab = kebabCase(key) as keyof ContentSecurityPolicyKebab;
+        if (acc[kebab]) {
+          throw new Error(
+            `[createContentSecurityPolicy]: The key "${key}" was specified in camelCase and kebab-case.`,
+          );
+        }
+        // @ts-expect-error - hush
+        acc[kebab] = value;
+        return acc;
+      },
+      {},
+    );
+
   let policy: Array<string> = [];
-  let seenKeys: Set<string> = new Set();
 
-  if (
-    "upgradeInsecureRequests" in settings &&
-    settings.upgradeInsecureRequests
-  ) {
+  if (upgradeInsecureRequests) {
     policy.push("upgrade-insecure-requests");
-    delete settings.upgradeInsecureRequests;
   }
 
-  if (
-    "upgrade-insecure-requests" in settings &&
-    settings["upgrade-insecure-requests"]
-  ) {
-    policy.push("upgrade-insecure-requests");
-    delete settings["upgrade-insecure-requests"];
-  }
-
-  for (let [originalKey, values] of Object.entries(settings)) {
-    let key = convertCamelToDash(originalKey);
-    if (seenKeys.has(key)) {
-      throw new Error(
-        `[createContentSecurityPolicy]: The key "${originalKey}" was specified more than once.`,
-      );
-    }
-
+  for (let [key, values] of Object.entries(rest)) {
     let allowedValuesSeen: Set<string> = new Set();
 
     if (!Array.isArray(values)) {
       throw new Error(
-        `[createContentSecurityPolicy]: The value of the "${originalKey}" must be array of strings.`,
+        `[createContentSecurityPolicy]: The value of the "${key}" must be array of strings.`,
       );
     }
 
@@ -99,13 +100,13 @@ export function createContentSecurityPolicy(
     definedValues.forEach((allowedValue) => {
       if (typeof allowedValue !== "string") {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${originalKey}" contains a non-string, which is not supported.`,
+          `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`,
         );
       }
 
       if (allowedValuesSeen.has(allowedValue)) {
         throw new Error(
-          `[createContentSecurityPolicy]: The value of the "${originalKey}" contains duplicates, which it shouldn't.`,
+          `[createContentSecurityPolicy]: The value of the "${key}" contains duplicates, which it shouldn't.`,
         );
       }
 
@@ -125,7 +126,6 @@ export function createContentSecurityPolicy(
     }
 
     policy.push(`${key} ${definedValues.join(" ")}`);
-    seenKeys.add(key);
   }
 
   return policy.join("; ");

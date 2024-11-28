@@ -1,5 +1,5 @@
 import type { LiteralUnion } from "type-fest";
-import { convertCamelToDash } from "../utils.js";
+import { kebabCase } from "change-case";
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
@@ -82,7 +82,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
         );
       }
 
-      const featureKeyDashed = convertCamelToDash(key);
+      const featureKeyDashed = kebabCase(key);
       const featureValuesUnion = featureValues
         .map((value) => {
           if (reservedPermissionKeywords.has(value)) {
