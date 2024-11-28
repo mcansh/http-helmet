@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.11.2
+
+### Patch Changes
+
+- 4597846: dont allow mixing kebab-case and camelCase csp keys and make it so csp isnt required
+
 ## 0.11.1
 
 ### Patch Changes
