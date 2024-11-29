@@ -1,3 +1,5 @@
+import Crypto from "node:crypto";
+
 export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
 }
@@ -44,4 +46,8 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
   }
 
   return new Headers(result);
+}
+
+export function createNonce(): string {
+  return Crypto.randomBytes(16).toString("hex");
 }
