@@ -16,8 +16,7 @@ basic example using [`@mjackson/node-fetch-server`](https://github.com/mjackson/
 ```js
 import * as http from "node:http";
 import { createRequestListener } from "@mjackson/node-fetch-server";
-import { createNonce } from "@mcansh/http-helmet/react";
-import { createSecureHeaders } from "@mcansh/http-helmet";
+import { createNonce, createSecureHeaders } from "@mcansh/http-helmet";
 
 let html = String.raw;
 
