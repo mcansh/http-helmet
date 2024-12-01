@@ -19,7 +19,7 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   let callback = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
@@ -28,9 +28,9 @@ export default function handleRequest(
   let nonce = createNonce();
   let secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", `'nonce-${nonce}'`],
-      connectSrc: [
+      "default-src": ["'self'"],
+      "script-src": ["'self'", `'nonce-${nonce}'`],
+      "connect-src": [
         "'self'",
         ...(process.env.NODE_ENV === "development" ? ["ws:", ""] : []),
       ],
@@ -65,7 +65,7 @@ export default function handleRequest(
             new Response(stream, {
               headers: mergeHeaders(responseHeaders, secureHeaders),
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -82,7 +82,7 @@ export default function handleRequest(
             console.error(error);
           }
         },
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);

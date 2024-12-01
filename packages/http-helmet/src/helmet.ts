@@ -127,14 +127,14 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
     options["Content-Security-Policy-Report-Only"]
   ) {
     throw new Error(
-      "createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time"
+      "createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time",
     );
   }
 
   if (options["Content-Security-Policy"]) {
     headers.set(
       "Content-Security-Policy",
-      createContentSecurityPolicy(options["Content-Security-Policy"])
+      createContentSecurityPolicy(options["Content-Security-Policy"]),
     );
   }
 
@@ -142,8 +142,8 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
     headers.set(
       "Content-Security-Policy-Report-Only",
       createContentSecurityPolicy(
-        options["Content-Security-Policy-Report-Only"]
-      )
+        options["Content-Security-Policy-Report-Only"],
+      ),
     );
   }
 
@@ -154,14 +154,14 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
   if (options["Permissions-Policy"]) {
     headers.set(
       "Permissions-Policy",
-      createPermissionsPolicy(options["Permissions-Policy"])
+      createPermissionsPolicy(options["Permissions-Policy"]),
     );
   }
 
   if (options["Strict-Transport-Security"]) {
     headers.set(
       "Strict-Transport-Security",
-      createStrictTransportSecurity(options["Strict-Transport-Security"])
+      createStrictTransportSecurity(options["Strict-Transport-Security"]),
     );
   }
 
@@ -176,21 +176,21 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
   if (options["Cross-Origin-Embedder-Policy"]) {
     headers.set(
       "Cross-Origin-Embedder-Policy",
-      options["Cross-Origin-Embedder-Policy"]
+      options["Cross-Origin-Embedder-Policy"],
     );
   }
 
   if (options["Cross-Origin-Opener-Policy"]) {
     headers.set(
       "Cross-Origin-Opener-Policy",
-      options["Cross-Origin-Opener-Policy"]
+      options["Cross-Origin-Opener-Policy"],
     );
   }
 
   if (options["Cross-Origin-Resource-Policy"]) {
     headers.set(
       "Cross-Origin-Resource-Policy",
-      options["Cross-Origin-Resource-Policy"]
+      options["Cross-Origin-Resource-Policy"],
     );
   }
 

@@ -1,0 +1,5 @@
+# created during build for node10 compatibility
+react.cjs
+react.d.cts
+react.d.ts
+react.js

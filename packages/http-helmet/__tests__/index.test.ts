@@ -145,7 +145,9 @@ it("throws an error on duplicate CSP keys", () => {
         "default-src": ["'self'"],
       },
     }),
-  ).toThrowErrorMatchingInlineSnapshot(`[Error: [createContentSecurityPolicy]: The key "default-src" was specified in camelCase and kebab-case.]`);
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: [createContentSecurityPolicy]: The key "default-src" was specified in camelCase and kebab-case.]`,
+  );
 });
 
 it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-Report-Only" are set at the same time', () => {
