@@ -19,7 +19,7 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
-  _loadContext: AppLoadContext
+  _loadContext: AppLoadContext,
 ) {
   const nonce = createNonce();
   const secureHeaders = createSecureHeaders({
@@ -61,7 +61,7 @@ export default function handleRequest(
             new Response(stream, {
               headers: mergeHeaders(responseHeaders, secureHeaders),
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -78,7 +78,7 @@ export default function handleRequest(
             console.error(error);
           }
         },
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);

@@ -72,7 +72,7 @@ jobs:
               cwd: ./
 
       - name: 🏗 Build
-        run: yarn build
+        run: pnpm run build
 
       - name: 🔐 Setup npm auth
         run: |
