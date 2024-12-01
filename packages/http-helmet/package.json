@@ -1,6 +1,6 @@
 {
   "name": "@mcansh/http-helmet",
-  "version": "0.10.3",
+  "version": "0.12.0",
   "description": "",
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
@@ -19,24 +19,12 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": {
-        "require": "./dist/index.d.cts",
-        "import": "./dist/index.d.ts",
-        "default": "./dist/index.d.cts"
-      },
       "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "default": "./dist/index.cjs"
+      "import": "./dist/index.js"
     },
     "./react": {
-      "types": {
-        "require": "./dist/react.d.cts",
-        "import": "./dist/react.d.ts",
-        "default": "./dist/react.d.cts"
-      },
       "require": "./dist/react.cjs",
-      "import": "./dist/react.js",
-      "default": "./dist/react.cjs"
+      "import": "./dist/react.js"
     }
   },
   "main": "./dist/index.cjs",
@@ -56,16 +44,17 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "type-fest": "^4.12.0"
+    "change-case": "^5.4.4",
+    "type-fest": "^4.26.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.72",
-    "@types/react-dom": "^18.2.22",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0"
   },
   "peerDependenciesMeta": {

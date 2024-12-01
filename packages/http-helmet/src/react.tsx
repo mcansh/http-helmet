@@ -1,5 +1,3 @@
-import nodeCrypto from "node:crypto";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
 
 let NonceContext = React.createContext<string | undefined>(undefined);
@@ -17,11 +15,4 @@ export function NonceProvider({ nonce, children }: NonceProviderProps) {
 
 export function useNonce(): string | undefined {
   return React.useContext(NonceContext);
-}
-
-export function createNonce(): string {
-  if ("randomUUID" in crypto) {
-    return Buffer.from(crypto.randomUUID()).toString("hex");
-  }
-  return nodeCrypto.randomBytes(16).toString("hex");
 }

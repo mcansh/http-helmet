@@ -1,5 +1,42 @@
 # @mcansh/http-helmet
 
+## 0.12.0
+
+### Minor Changes
+
+- af61382: move `createNonce` helper function to main import
+  add `type` to imports where missing
+
+### Patch Changes
+
+- 4597846: dont allow mixing kebab-case and camelCase csp keys and make it so csp isnt required
+
+## 0.11.1
+
+### Patch Changes
+
+- f0a2ee3: feat: only allow using kebab or camel case, not both
+
+## 0.11.0
+
+### Minor Changes
+
+- 9b7cc24: feat: filter out falsy values from csp
+
+  ```js
+  createContentSecurityPolicy({
+    "connect-src": [undefined, "'self'", undefined],
+  });
+
+  // => `"connect-src 'self'"`
+  ```
+
+### Patch Changes
+
+- 9b7cc24: apply `upgrade-insecure-requests` when using kebab case to set it
+
+  previously was only applying the `upgrade-insecure-requests` directive when using camelCase (upgradeInsecureRequests)
+
 ## 0.10.3
 
 ### Patch Changes

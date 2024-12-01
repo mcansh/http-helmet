@@ -1,4 +1,4 @@
-export { mergeHeaders } from "./utils";
+export { createNonce, mergeHeaders } from "./utils";
 
 export type {
   ContentSecurityPolicy,

@@ -18,15 +18,23 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
+      - name: 🟧 Get pnpm version
+        id: pnpm-version
+        shell: bash
+        run: |
+          # get pnpm version from package.json packageManager field
+          VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
       - name: 🟧 Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
@@ -55,15 +63,23 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
+      - name: 🟧 Get pnpm version
+        id: pnpm-version
+        shell: bash
+        run: |
+          # get pnpm version from package.json packageManager field
+          VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version: ${{ matrix.node }}
 
       - name: 🟧 Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]

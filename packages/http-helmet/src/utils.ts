@@ -1,11 +1,7 @@
+import Crypto from "node:crypto";
+
 export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
-}
-
-export function dashify(string: string): string {
-  return string.replace(/[A-Z]/g, (capitalLetter) => {
-    return `-${capitalLetter.toLowerCase()}`;
-  });
 }
 
 type Algorithm = "sha256" | "sha384" | "sha512";
@@ -50,4 +46,8 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
   }
 
   return new Headers(result);
+}
+
+export function createNonce(): string {
+  return Crypto.randomBytes(16).toString("hex");
 }

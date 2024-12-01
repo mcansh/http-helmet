@@ -11,8 +11,12 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
-import { NonceProvider, createNonce } from "@mcansh/http-helmet/react";
+import {
+  createNonce,
+  createSecureHeaders,
+  mergeHeaders,
+} from "@mcansh/http-helmet";
+import { NonceProvider } from "@mcansh/http-helmet/react";
 
 const ABORT_DELAY = 5_000;
 
@@ -24,15 +28,16 @@ export default function handleRequest(
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _loadContext: AppLoadContext,
+  _loadContext: AppLoadContext
 ) {
-  let callback = isbot(request.headers.get("user-agent"))
+  const callback = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
     : "onShellReady";
 
-  let nonce = createNonce();
-  let secureHeaders = createSecureHeaders({
+  const nonce = createNonce();
+  const secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
+      "upgrade-insecure-requests": process.env.NODE_ENV === "production",
       "default-src": ["'self'"],
       "script-src": [
         "'self'",
@@ -84,7 +89,7 @@ export default function handleRequest(
             new Response(stream, {
               headers: mergeHeaders(responseHeaders, secureHeaders),
               status: responseStatusCode,
-            }),
+            })
           );
 
           pipe(body);
@@ -101,7 +106,7 @@ export default function handleRequest(
             console.error(error);
           }
         },
-      },
+      }
     );
 
     setTimeout(abort, ABORT_DELAY);

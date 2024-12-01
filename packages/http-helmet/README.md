@@ -11,22 +11,17 @@ npm i @mcansh/http-helmet
 
 ## Usage
 
-basic example using hono
+basic example using [`@mjackson/node-fetch-server`](https://github.com/mjackson/remix-the-web/tree/main/packages/node-fetch-server)
 
 ```js
-import crypto from "node:crypto";
-
-import { serve } from "@hono/node-server";
-import { Hono } from "hono";
-import { createSecureHeaders } from "@mcansh/http-helmet";
-
-const app = new Hono();
+import * as http from "node:http";
+import { createRequestListener } from "@mjackson/node-fetch-server";
+import { createNonce, createSecureHeaders } from "@mcansh/http-helmet";
 
 let html = String.raw;
 
-app.get("/", () => {
-  let nonce = crypto.randomBytes(16).toString("base64");
-
+let handler = (request) => {
+  let nonce = createNonce();
   let headers = createSecureHeaders({
     "Content-Security-Policy": {
       defaultSrc: ["'self'"],
@@ -34,7 +29,7 @@ app.get("/", () => {
     },
   });
 
-  headers.append("Content-Type", "text/html; charset=utf-8");
+  headers.append("content-type", "text/html");
 
   return new Response(
     html`
@@ -63,9 +58,11 @@ app.get("/", () => {
     `,
     { headers },
   );
-});
+};
 
-serve(app, (info) => {
-  console.log(`✅ app ready: http://${info.address}:${info.port}`);
-});
+let server = http.createServer(createRequestListener(handler));
+
+server.listen(3000);
+
+console.log("✅ app ready: http://localhost:3000");
 ```

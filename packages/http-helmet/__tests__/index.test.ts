@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { createSecureHeaders, mergeHeaders } from "../src/index.js";
+import {
+  createContentSecurityPolicy,
+  createSecureHeaders,
+  mergeHeaders,
+} from "../src/index.js";
 
 it("generates a config", () => {
   let headers = createSecureHeaders({
@@ -141,9 +145,7 @@ it("throws an error on duplicate CSP keys", () => {
         "default-src": ["'self'"],
       },
     }),
-  ).toThrowErrorMatchingInlineSnapshot(
-    `[Error: [createContentSecurityPolicy]: The key "default-src" was specified more than once.]`,
-  );
+  ).toThrowErrorMatchingInlineSnapshot(`[Error: [createContentSecurityPolicy]: The key "default-src" was specified in camelCase and kebab-case.]`);
 });
 
 it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-Report-Only" are set at the same time', () => {
@@ -160,4 +162,41 @@ it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-
   ).toThrowErrorMatchingInlineSnapshot(
     `[Error: createSecureHeaders: Content-Security-Policy and Content-Security-Policy-Report-Only cannot be set at the same time]`,
   );
+});
+
+it("allows and filters out `undefined` values", () => {
+  let csp = createContentSecurityPolicy({
+    "connect-src": [undefined, "'self'", undefined],
+  });
+
+  expect(csp).toMatchInlineSnapshot(`"connect-src 'self'"`);
+});
+
+it("throws an error when there's no define values for a csp key", () => {
+  expect(() =>
+    createContentSecurityPolicy({
+      "base-uri": [undefined],
+      "default-src": ["'none'"],
+    }),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: [createContentSecurityPolicy]: key "base-uri" has no defined options]`,
+  );
+});
+
+describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests", () => {
+  it("upgradeInsecureRequests", () => {
+    expect(
+      createContentSecurityPolicy({
+        upgradeInsecureRequests: true,
+      }),
+    ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
+  });
+
+  it("upgrade-insecure-requests", () => {
+    expect(
+      createContentSecurityPolicy({
+        "upgrade-insecure-requests": true,
+      }),
+    ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
+  });
 });
