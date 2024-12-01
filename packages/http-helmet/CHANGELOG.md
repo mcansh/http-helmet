@@ -1,5 +1,16 @@
 # @mcansh/http-helmet
 
+## 0.12.0
+
+### Minor Changes
+
+- af61382: move `createNonce` helper function to main import
+  add `type` to imports where missing
+
+### Patch Changes
+
+- 4597846: dont allow mixing kebab-case and camelCase csp keys and make it so csp isnt required
+
 ## 0.11.1
 
 ### Patch Changes
