@@ -32,12 +32,16 @@
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
+    "react.cjs",
+    "react.d.cts",
+    "react.d.ts",
+    "react.js",
     "dist",
     "README.md",
     "package.json"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build && attw $(npm pack)",
+    "prepublishOnly": "npm run build && attw --pack --format=table",
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
