@@ -8,8 +8,8 @@
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
     "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
-    "test": "pnpm run --recursive --filter ./packages/* test",
-    "lint": "pnpm run --recursive --filter ./packages/* lint",
+    "test": "pnpm run --recursive test",
+    "lint": "pnpm run --recursive lint",
     "publish": "./scripts/publish.js",
     "publint": "publint ./packages/**",
     "attw": "attw ./packages/** --pack",
@@ -19,7 +19,7 @@
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
     "validate": "run-p build lint format publint typecheck",
-    "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
+    "typecheck": "pnpm run --recursive typecheck"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",

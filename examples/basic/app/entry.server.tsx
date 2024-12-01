@@ -28,9 +28,9 @@ export default function handleRequest(
   let nonce = createNonce();
   let secureHeaders = createSecureHeaders({
     "Content-Security-Policy": {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", `'nonce-${nonce}'`],
-      connectSrc: [
+      "default-src": ["'self'"],
+      "script-src": ["'self'", `'nonce-${nonce}'`],
+      "connect-src": [
         "'self'",
         ...(process.env.NODE_ENV === "development" ? ["ws:", ""] : []),
       ],

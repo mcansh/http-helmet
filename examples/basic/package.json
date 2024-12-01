@@ -7,7 +7,7 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@mcansh/http-helmet": "workspace:*",
