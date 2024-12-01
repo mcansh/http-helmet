@@ -106,8 +106,8 @@ importers:
   examples/react-router-v7:
     dependencies:
       '@mcansh/http-helmet':
-        specifier: ^0.11.2
-        version: 0.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: workspace:*
+        version: link:../../packages/http-helmet
       '@react-router/node':
         specifier: ^7.0.1
         version: 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)
@@ -1211,17 +1211,6 @@ packages:
   '@manypkg/tools@1.1.2':
     resolution: {integrity: sha512-3lBouSuF7CqlseLB+FKES0K4FQ02JrbEoRtJhxnsyB1s5v4AP03gsoohN8jp7DcOImhaR9scYdztq3/sLfk/qQ==}
     engines: {node: '>=14.18.0'}
-
-  '@mcansh/http-helmet@0.11.2':
-    resolution: {integrity: sha512-LwwY1v6QmZahLg5Ba3XDkM6qq2RVezB/0AEyLVkBCDRERMPXLGQ5cw///8oMfRdYcObUn6ObY5HithaQMhNQDw==}
-    peerDependencies:
-      react: ^18.3.1
-      react-dom: ^18.2.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
 
   '@mdx-js/mdx@2.3.0':
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
@@ -6647,14 +6636,6 @@ snapshots:
       fast-glob: 3.3.2
       jju: 1.4.0
       js-yaml: 4.1.0
-
-  '@mcansh/http-helmet@0.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      change-case: 5.4.4
-      type-fest: 4.26.1
-    optionalDependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   '@mdx-js/mdx@2.3.0':
     dependencies:
