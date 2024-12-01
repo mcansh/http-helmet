@@ -1,5 +1,4 @@
 import fsp from "node:fs/promises";
-import path from "node:path";
 import { defineConfig } from "tsup";
 import chalk from "chalk";
 import { getExportsRuntime } from "pkg-exports";
@@ -38,11 +37,11 @@ export default defineConfig(() => {
           let exports = (await getExportsRuntime(
             "./dist/react.cjs",
           )) as string[];
+
           // https://nodejs.org/api/esm.html#commonjs-namespaces
           // When importing CommonJS modules, the module.exports object is provided as the default export
           // and make import { xxx } from './react' work
           contents = js`
-            module.exports = require("./dist/react.js");
             ${exports.map((e) => `exports.${e} = require("./dist/${file}").${e};`).join("\n")}
           `;
         } else if (file.endsWith(".js")) {
