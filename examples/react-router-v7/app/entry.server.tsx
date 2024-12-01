@@ -3,7 +3,7 @@ import {
   createSecureHeaders,
   mergeHeaders,
 } from "@mcansh/http-helmet";
-import { NonceProvider } from "@mcansh/http-helmet";
+import { NonceProvider } from "@mcansh/http-helmet/react";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { PassThrough } from "node:stream";
