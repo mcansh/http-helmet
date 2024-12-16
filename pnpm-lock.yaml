@@ -112,8 +112,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
       '@react-router/serve':
-        specifier: ^7.0.1
-        version: 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
+        specifier: ^7.0.2
+        version: 7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
       isbot:
         specifier: ^5.1.17
         version: 5.1.17
@@ -129,7 +129,7 @@ importers:
     devDependencies:
       '@react-router/dev':
         specifier: ^7.0.1
-        version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3))(@types/node@20.17.9)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)(vite@6.0.3(@types/node@20.17.9)(jiti@1.21.6)(yaml@2.6.1))
+        version: 7.0.1(@react-router/serve@7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3))(@types/node@20.17.9)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)(vite@6.0.3(@types/node@20.17.9)(jiti@1.21.6)(yaml@2.6.1))
       '@types/node':
         specifier: ^20
         version: 20.17.9
@@ -1327,12 +1327,12 @@ packages:
       wrangler:
         optional: true
 
-  '@react-router/express@7.0.1':
-    resolution: {integrity: sha512-zAw65RMiF5TshPVvmoCpUjjpNwC7vmpp38lqP2xX6Rfp+K99LhMaNyhsIeG9pKNIXQ7EuMwp3zG7kjr5suQAiA==}
+  '@react-router/express@7.0.2':
+    resolution: {integrity: sha512-rhKt/bylEdZNHKzOI8NzP6b27fiJ2zjf59b/boWWOwjuDk6ZEdV1iLa2Nvm55qN1mj2zSx3H/9Tx/ZPHgrGEgw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       express: ^4.17.1
-      react-router: 7.0.1
+      react-router: 7.0.2
       typescript: ^5.1.0
     peerDependenciesMeta:
       typescript:
@@ -1348,12 +1348,22 @@ packages:
       typescript:
         optional: true
 
-  '@react-router/serve@7.0.1':
-    resolution: {integrity: sha512-JkU9aCtj61P7o+cZt+4NWHpij7c71jBnj/lF06zGIp+4VP9q6hUN3pMjdLZe91mBZu6dfmWUTh8hlY6pCoeUIA==}
+  '@react-router/node@7.0.2':
+    resolution: {integrity: sha512-6Of5M2wP9QgYlR+boR0ptPjh3UyfaNvPMKQihowTGjAjUZIoNqz4iBn8ClNsLFbT3KQewcnNTHi2p+Ou7S4ZyQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react-router: 7.0.2
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@react-router/serve@7.0.2':
+    resolution: {integrity: sha512-kVoU2aeCRJ7rMWXtzJaFw52DgGhk8SqbgGpVQXIOj2QFN2rqrDz7L/WyIhCeOEztTSBgZxID0qDE7DPdbnHkkQ==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
-      react-router: 7.0.1
+      react-router: 7.0.2
 
   '@remix-run/dev@2.15.0':
     resolution: {integrity: sha512-iXV6u9PBwFc7KriDpVcjqLGJzZZd6ZOrxewen7hoH0OBzGwjkhtm46BTQEJrZ/e/dzlU1IU/0ylH29tN9BZoyg==}
@@ -6809,7 +6819,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3))(@types/node@20.17.9)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)(vite@6.0.3(@types/node@20.17.9)(jiti@1.21.6)(yaml@2.6.1))':
+  '@react-router/dev@7.0.1(@react-router/serve@7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3))(@types/node@20.17.9)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)(vite@6.0.3(@types/node@20.17.9)(jiti@1.21.6)(yaml@2.6.1))':
     dependencies:
       '@babel/core': 7.22.10
       '@babel/generator': 7.23.6
@@ -6843,7 +6853,7 @@ snapshots:
       vite: 6.0.3(@types/node@20.17.9)(jiti@1.21.6)(yaml@2.6.1)
       vite-node: 1.6.0(@types/node@20.17.9)
     optionalDependencies:
-      '@react-router/serve': 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
+      '@react-router/serve': 7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
       typescript: 5.6.3
     transitivePeerDependencies:
       - '@types/node'
@@ -6858,9 +6868,9 @@ snapshots:
       - supports-color
       - terser
 
-  '@react-router/express@7.0.1(express@4.21.1)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)':
+  '@react-router/express@7.0.2(express@4.21.1)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)':
     dependencies:
-      '@react-router/node': 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
+      '@react-router/node': 7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
       express: 4.21.1
       react-router: 7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0)
     optionalDependencies:
@@ -6876,10 +6886,20 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  '@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)':
+  '@react-router/node@7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)':
     dependencies:
-      '@react-router/express': 7.0.1(express@4.21.1)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
-      '@react-router/node': 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
+      '@mjackson/node-fetch-server': 0.2.0
+      react-router: 7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0)
+      source-map-support: 0.5.21
+      stream-slice: 0.1.2
+      undici: 6.19.8
+    optionalDependencies:
+      typescript: 5.6.3
+
+  '@react-router/serve@7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)':
+    dependencies:
+      '@react-router/express': 7.0.2(express@4.21.1)(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
+      '@react-router/node': 7.0.2(react-router@7.0.1(react-dom@18.3.1(react@19.0.0))(react@19.0.0))(typescript@5.6.3)
       compression: 1.7.4
       express: 4.21.1
       get-port: 5.1.1
