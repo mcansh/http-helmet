@@ -15,3 +15,7 @@ updates:
       "@remix-run":
         patterns:
           - "@remix-run/*"
+      "@react-router":
+        patterns:
+          - "@react-router/*"
+          - "react-router"
