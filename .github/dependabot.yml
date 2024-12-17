@@ -19,3 +19,9 @@ updates:
         patterns:
           - "@react-router/*"
           - "react-router"
+      "react":
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
