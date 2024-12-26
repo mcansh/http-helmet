@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.12.1
+
+### Patch Changes
+
+- 81a7d9e: remove dependency on node:crypto using the crypto global instead
+
 ## 0.12.0
 
 ### Minor Changes
