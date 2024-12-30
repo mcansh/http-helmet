@@ -41,7 +41,7 @@
     "publint": "^0.2.12",
     "semver": "^7.6.3",
     "tsup": "^8.3.5",
-    "type-fest": "^4.26.1",
+    "type-fest": "^4.31.0",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
