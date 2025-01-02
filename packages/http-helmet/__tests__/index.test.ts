@@ -43,7 +43,7 @@ it("generates a config", () => {
     "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'",
   );
   expect(headers.get("Permissions-Policy")).toBe(
-    `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org", interest-cohort=()`
+    `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org"), interest-cohort=()`
   );
   expect(headers.get("X-XSS-Protection")).toBe("1; report=https://google.com");
   expect(headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
