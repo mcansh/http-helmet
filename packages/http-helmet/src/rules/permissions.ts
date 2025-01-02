@@ -16,6 +16,7 @@ type KnownPermissions = LiteralUnion<
   | "gamepad"
   | "geolocation"
   | "gyroscope"
+  | "interestCohort"
   | "layoutAnimations"
   | "legacyImageFormats"
   | "magnetometer"
