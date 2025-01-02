@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.12.2
+
+### Patch Changes
+
+- 4105e69: add support for interest-cohort to permissions policy
+
 ## 0.12.1
 
 ### Patch Changes
