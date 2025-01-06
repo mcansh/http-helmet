@@ -48,7 +48,7 @@
     "type-fest": "^4.31.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.2",
+    "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
