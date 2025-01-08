@@ -1,5 +1,11 @@
 # @mcansh/http-helmet
 
+## 0.13.0
+
+### Minor Changes
+
+- 0908d16: update react and react-dom peerDependencies to support react 18 and react 19
+
 ## 0.12.2
 
 ### Patch Changes
