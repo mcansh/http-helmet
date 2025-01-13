@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "change-case": "^5.4.4",
-    "type-fest": "^4.31.0"
+    "type-fest": "^4.32.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.3",
