@@ -50,6 +50,7 @@
   "devDependencies": {
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "content-security-policy-parser": "^0.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

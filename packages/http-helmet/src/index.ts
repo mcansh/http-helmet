@@ -1,4 +1,23 @@
-export { createNonce, mergeHeaders } from "./utils";
+export {
+  HASH,
+  NONCE,
+  NONE,
+  REPORT_SAMPLE,
+  SELF,
+  STRICT_DYNAMIC,
+  UNSAFE_EVAL,
+  UNSAFE_HASHES,
+  UNSAFE_INLINE,
+  WASM_UNSAFE_EVAL,
+  mergeHeaders,
+} from "./utils";
+
+export {
+  createContentSecurityPolicy,
+  createPermissionsPolicy,
+  createSecureHeaders,
+  createStrictTransportSecurity,
+} from "./helmet";
 
 export type {
   ContentSecurityPolicy,
@@ -11,10 +30,4 @@ export type {
   ReferrerPolicy,
   StrictTransportSecurity,
   XSSProtection,
-} from "./helmet";
-export {
-  createContentSecurityPolicy,
-  createPermissionsPolicy,
-  createSecureHeaders,
-  createStrictTransportSecurity,
 } from "./helmet";

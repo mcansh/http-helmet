@@ -18,6 +18,21 @@ export type QuotedSource =
   | "'report-sample'"
   | HashSource;
 
+export let SELF = "'self'" as const;
+export let NONE = "'none'" as const;
+export let UNSAFE_INLINE = "'unsafe-inline'" as const;
+export let UNSAFE_EVAL = "'unsafe-eval'" as const;
+export let WASM_UNSAFE_EVAL = "'wasm-unsafe-eval'" as const;
+export let UNSAFE_HASHES = "'unsafe-hashes'" as const;
+export let STRICT_DYNAMIC = "'strict-dynamic'" as const;
+export let REPORT_SAMPLE = "'report-sample'" as const;
+export function NONCE(nonce: string): `'nonce-${string}'` {
+  return `'nonce-${nonce}'`;
+}
+export function HASH(algorithm: Algorithm, hash: string): HashSource {
+  return `'${algorithm}-${hash}'`;
+}
+
 function isObject(value: unknown) {
   return value !== null && typeof value === "object";
 }
