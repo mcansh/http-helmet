@@ -61,6 +61,9 @@ export function createContentSecurityPolicy(
 ): string;
 export function createContentSecurityPolicy(
   settings: ContentSecurityPolicy,
+): string;
+export function createContentSecurityPolicy(
+  settings: ContentSecurityPolicy,
 ): string {
   let { "upgrade-insecure-requests": upgradeInsecureRequests, ...rest } =
     Object.entries(settings).reduce<ContentSecurityPolicyKebab>(
