@@ -27,23 +27,23 @@
     "examples/*"
   ],
   "dependencies": {
-    "@changesets/cli": "^2.27.10",
+    "@changesets/cli": "^2.28.1",
     "@manypkg/get-packages": "^2.2.2",
-    "@types/node": "^22.10.7",
-    "chalk": "^5.3.0",
+    "@types/node": "^22.13.10",
+    "chalk": "^5.4.1",
     "del-cli": "^6.0.0",
     "glob": "^11.0.1",
     "jsonfile": "^6.1.0",
     "npm-run-all": "^4.1.5",
-    "pkg-pr-new": "^0.0.39",
-    "prettier": "^3.4.2",
+    "pkg-pr-new": "^0.0.40",
+    "prettier": "^3.5.3",
     "prompt-confirm": "^2.0.4",
-    "publint": "^0.3.0",
-    "semver": "^7.6.3",
-    "tsup": "^8.3.5",
-    "type-fest": "^4.32.0",
-    "typescript": "^5.7.3",
-    "vitest": "^2.1.9"
+    "publint": "^0.3.8",
+    "semver": "^7.7.1",
+    "tsup": "^8.4.0",
+    "type-fest": "^4.37.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
   },
   "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3"
 }
