@@ -10,6 +10,7 @@ export {
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
   mergeHeaders,
+  createNonce,
 } from "./utils";
 
 export {

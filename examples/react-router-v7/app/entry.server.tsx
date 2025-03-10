@@ -1,8 +1,4 @@
-import {
-  createNonce,
-  createSecureHeaders,
-  mergeHeaders,
-} from "@mcansh/http-helmet";
+import { createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
 import { NonceProvider } from "@mcansh/http-helmet/react";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
@@ -19,7 +15,7 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
-  _loadContext: AppLoadContext
+  _loadContext: AppLoadContext,
 ) {
   const nonce = createNonce();
   const secureHeaders = createSecureHeaders({
@@ -61,7 +57,7 @@ export default function handleRequest(
             new Response(stream, {
               headers: mergeHeaders(responseHeaders, secureHeaders),
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -78,7 +74,7 @@ export default function handleRequest(
             console.error(error);
           }
         },
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);
