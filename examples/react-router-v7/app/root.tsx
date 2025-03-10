@@ -28,14 +28,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const nonce = useNonce();
 
   return (
-    <html lang="en">
+    <html lang="en" className="bg-white dark:bg-gray-950 scheme-light-dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-white dark:bg-gray-950 scheme-light-dark">
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
