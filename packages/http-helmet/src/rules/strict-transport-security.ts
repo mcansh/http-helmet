@@ -4,9 +4,12 @@ export type StrictTransportSecurity = {
   preload?: boolean;
 };
 
-export function createStrictTransportSecurity(options: true): string;
 export function createStrictTransportSecurity(
   options: StrictTransportSecurity,
+): string;
+export function createStrictTransportSecurity(options: true): string;
+export function createStrictTransportSecurity(
+  options: StrictTransportSecurity | true,
 ): string;
 export function createStrictTransportSecurity(
   options: StrictTransportSecurity | true,
