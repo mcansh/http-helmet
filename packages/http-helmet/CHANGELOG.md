@@ -1,5 +1,29 @@
 # @mcansh/http-helmet
 
+## 0.13.0
+
+### Minor Changes
+
+- 0908d16: update react and react-dom peerDependencies to support react 18 and react 19
+
+### Patch Changes
+
+- 6e43ad1: allows shorthand for Strict-Transport-Policy header using `createStrictTransportSecurity` function and `createSecureHeaders` functions
+
+  ```js
+  import { createStrictTransportSecurity } from "@mcansh/http-helmet";
+
+  let hsts = createStrictTransportSecurity({
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  });
+  // => "max-age=31536000; includeSubDomains; preload"
+  ```
+
+- 2664239: bumped typefest to latest release
+- 83767f3: add prequoted keyword exports (SELF, NONE, UNSAFE_EVAL, etc)
+
 ## 0.12.2
 
 ### Patch Changes
