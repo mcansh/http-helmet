@@ -119,6 +119,14 @@ describe("createSecureHeaders", () => {
     expect(styleSrc).toEqual([UNSAFE_EVAL, UNSAFE_INLINE]);
     expect(fontSrc).toEqual([REPORT_SAMPLE]);
   });
+
+  it('allows shorthand for "Strict-Transport-Security"', () => {
+    let headers = createSecureHeaders({ "Strict-Transport-Security": true });
+
+    expect(headers.get("Strict-Transport-Security")).toBe(
+      "max-age=15552000; includeSubDomains; preload",
+    );
+  });
 });
 
 it("throws an error if the value is reserved", () => {
