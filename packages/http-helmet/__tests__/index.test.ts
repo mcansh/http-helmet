@@ -1,60 +1,124 @@
 import { describe, expect, it } from "vitest";
+import parseContentSecurityPolicy from "content-security-policy-parser";
 import {
   createContentSecurityPolicy,
   createSecureHeaders,
+  HASH,
   mergeHeaders,
+  NONCE,
+  NONE,
+  REPORT_SAMPLE,
+  SELF,
+  STRICT_DYNAMIC,
+  UNSAFE_EVAL,
+  UNSAFE_HASHES,
+  UNSAFE_INLINE,
+  WASM_UNSAFE_EVAL,
 } from "../src/index.js";
 
-it("generates a config", () => {
-  let headers = createSecureHeaders({
-    "Strict-Transport-Security": {
-      maxAge: 63072000,
-      includeSubDomains: true,
-      preload: true,
-    },
-    "Content-Security-Policy": {
-      defaultSrc: ["'self'"],
-      upgradeInsecureRequests: true,
-      scriptSrc: ["'sha512-sdhgsgh'"],
-      imgSrc: ["'none'"],
-    },
-    "Permissions-Policy": {
-      battery: [],
-      accelerometer: ["self"],
-      autoplay: ["https://example.com"],
-      camera: ["*"],
-      fullscreen: ["self", "https://example.com", "https://example.org"],
-      interestCohort: [],
-    },
-    "X-XSS-Protection": "1; report=https://google.com",
-    "Cross-Origin-Embedder-Policy": "require-corp",
-    "Cross-Origin-Opener-Policy": "same-origin",
-    "Cross-Origin-Resource-Policy": "same-origin",
-    "X-Content-Type-Options": "nosniff",
-    "X-DNS-Prefetch-Control": "on",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
-    "X-Frame-Options": "DENY",
+describe("createSecureHeaders", () => {
+  it("generates a config", () => {
+    let headers = createSecureHeaders({
+      "Strict-Transport-Security": {
+        maxAge: 63072000,
+        includeSubDomains: true,
+        preload: true,
+      },
+      "Content-Security-Policy": {
+        defaultSrc: ["'self'"],
+        upgradeInsecureRequests: true,
+        scriptSrc: ["'sha512-sdhgsgh'"],
+        imgSrc: ["'none'"],
+      },
+      "Permissions-Policy": {
+        battery: [],
+        accelerometer: ["self"],
+        autoplay: ["https://example.com"],
+        camera: ["*"],
+        fullscreen: ["self", "https://example.com", "https://example.org"],
+        interestCohort: [],
+      },
+      "X-XSS-Protection": "1; report=https://google.com",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "same-origin",
+      "X-Content-Type-Options": "nosniff",
+      "X-DNS-Prefetch-Control": "on",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "X-Frame-Options": "DENY",
+    });
+
+    expect(headers.get("Strict-Transport-Security")).toBe(
+      "max-age=63072000; includeSubDomains; preload",
+    );
+    expect(headers.get("Content-Security-Policy")).toBe(
+      "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'",
+    );
+    expect(headers.get("Permissions-Policy")).toBe(
+      `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org"), interest-cohort=()`,
+    );
+    expect(headers.get("X-XSS-Protection")).toBe(
+      "1; report=https://google.com",
+    );
+    expect(headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
+    expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
+    expect(headers.get("Cross-Origin-Resource-Policy")).toBe("same-origin");
+    expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
+    expect(headers.get("X-DNS-Prefetch-Control")).toBe("on");
+    expect(headers.get("Referrer-Policy")).toBe(
+      "strict-origin-when-cross-origin",
+    );
+    expect(headers.get("X-Frame-Options")).toBe("DENY");
   });
 
-  expect(headers.get("Strict-Transport-Security")).toBe(
-    "max-age=63072000; includeSubDomains; preload",
-  );
-  expect(headers.get("Content-Security-Policy")).toBe(
-    "upgrade-insecure-requests; default-src 'self'; script-src 'sha512-sdhgsgh'; img-src 'none'",
-  );
-  expect(headers.get("Permissions-Policy")).toBe(
-    `battery=(), accelerometer=(self), autoplay=("https://example.com"), camera=*, fullscreen=(self "https://example.com" "https://example.org"), interest-cohort=()`
-  );
-  expect(headers.get("X-XSS-Protection")).toBe("1; report=https://google.com");
-  expect(headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
-  expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
-  expect(headers.get("Cross-Origin-Resource-Policy")).toBe("same-origin");
-  expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
-  expect(headers.get("X-DNS-Prefetch-Control")).toBe("on");
-  expect(headers.get("Referrer-Policy")).toBe(
-    "strict-origin-when-cross-origin",
-  );
-  expect(headers.get("X-Frame-Options")).toBe("DENY");
+  it("allows using exported quoted values", () => {
+    let headers = createSecureHeaders({
+      "Content-Security-Policy": {
+        defaultSrc: [NONE],
+        scriptSrc: [
+          SELF,
+          NONCE("foo"),
+          HASH("sha256", "bar"),
+          UNSAFE_EVAL,
+          UNSAFE_HASHES,
+          WASM_UNSAFE_EVAL,
+          STRICT_DYNAMIC,
+        ],
+        imgSrc: [SELF, "https://example.com"],
+        styleSrc: [UNSAFE_EVAL, UNSAFE_INLINE],
+        fontSrc: [REPORT_SAMPLE],
+      },
+    });
+
+    let csp = headers.get("Content-Security-Policy");
+    if (!csp) throw new Error("Expected CSP header");
+    let parsed = parseContentSecurityPolicy(csp);
+
+    let defaultSrc = parsed.get("default-src");
+    if (!defaultSrc) throw new Error("Expected default-src");
+    let scriptSrc = parsed.get("script-src");
+    if (!scriptSrc) throw new Error("Expected script-src");
+    let imgSrc = parsed.get("img-src");
+    if (!imgSrc) throw new Error("Expected img-src");
+    let styleSrc = parsed.get("style-src");
+    if (!styleSrc) throw new Error("Expected style-src");
+    let fontSrc = parsed.get("font-src");
+    if (!fontSrc) throw new Error("Expected font-src");
+
+    expect(defaultSrc).toEqual([NONE]);
+    expect(scriptSrc).toEqual([
+      SELF,
+      `'nonce-foo'`,
+      `'sha256-bar'`,
+      UNSAFE_EVAL,
+      UNSAFE_HASHES,
+      WASM_UNSAFE_EVAL,
+      STRICT_DYNAMIC,
+    ]);
+    expect(imgSrc).toEqual([SELF, "https://example.com"]);
+    expect(styleSrc).toEqual([UNSAFE_EVAL, UNSAFE_INLINE]);
+    expect(fontSrc).toEqual([REPORT_SAMPLE]);
+  });
 });
 
 it("throws an error if the value is reserved", () => {
@@ -75,7 +139,7 @@ it("throws an error if the value is reserved", () => {
 describe("mergeHeaders", () => {
   it("merges headers", () => {
     let secureHeaders = createSecureHeaders({
-      "Content-Security-Policy": { defaultSrc: ["'self'"] },
+      "Content-Security-Policy": { "default-src": ["'self'"] },
     });
 
     let responseHeaders = new Headers({
@@ -99,7 +163,7 @@ describe("mergeHeaders", () => {
 
   it("overrides existing headers", () => {
     let secureHeaders = createSecureHeaders({
-      "Content-Security-Policy": { defaultSrc: ["'self'"] },
+      "Content-Security-Policy": { "default-src": ["'self'"] },
     });
 
     let responseHeaders = new Headers({
@@ -146,7 +210,9 @@ it("throws an error on duplicate CSP keys", () => {
         "default-src": ["'self'"],
       },
     }),
-  ).toThrowErrorMatchingInlineSnapshot(`[Error: [createContentSecurityPolicy]: The key "default-src" was specified in camelCase and kebab-case.]`);
+  ).toThrowErrorMatchingInlineSnapshot(
+    `[Error: [createContentSecurityPolicy]: The key "default-src" was specified in camelCase and kebab-case.]`,
+  );
 });
 
 it('throws an error when "Content-Security-Policy" and "Content-Security-Policy-Report-Only" are set at the same time', () => {
