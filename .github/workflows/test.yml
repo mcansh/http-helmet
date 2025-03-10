@@ -15,7 +15,7 @@ jobs:
     name: ⚙️ Build
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout repo
+      - name: ⬇️ Checkout code
         uses: actions/checkout@v4
 
       - name: 🟧 Get pnpm version
@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+          cache: 'pnpm'
 
       - name: 🟧 Setup pnpm
         uses: pnpm/action-setup@v4
