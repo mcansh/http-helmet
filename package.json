@@ -38,7 +38,7 @@
     "pkg-pr-new": "^0.0.40",
     "prettier": "^3.5.3",
     "prompt-confirm": "^2.0.4",
-    "publint": "^0.3.8",
+    "publint": "^0.3.12",
     "semver": "^7.7.1",
     "tsup": "^8.4.0",
     "type-fest": "^4.37.0",
