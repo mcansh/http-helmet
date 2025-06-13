@@ -1,5 +1,8 @@
 # HTTP Helmet
 
+> [!NOTE]  
+> This repo is now part of [mcansh/packages](https://github.com/mcansh/packages/tree/main/packages/http-helmet)
+
 easily add CSP and other security headers to your web application.
 
 ## Install
